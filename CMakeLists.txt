@@ -25,7 +25,7 @@ add_executable(TFALL
         Engine/Node/SoundNode.cpp
         Engine/Node/SoundNode.h
         Engine/Node/TextNode.cpp
-        Engine/Node/TextNode.
+        Engine/Node/TextNode.h
         Engine/Resources/SoundPlayer.cpp
         Engine/Resources/SoundPlayer.h
         Engine/Command/Command.cpp
