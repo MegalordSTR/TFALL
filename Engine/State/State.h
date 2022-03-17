@@ -14,49 +14,52 @@
 
 #include <memory>
 
-class StateStack;
 
-class State
+namespace Engine
 {
-public:
-    typedef std::unique_ptr<State> Ptr;
+    class StateStack;
 
-    struct Context
+    class State
     {
-        Context(
-                sf::RenderWindow& window,
-                FontHolder& fonts,
-                TextureHolder& textures,
-                SoundPlayer& soundPlayer
-        );
+    public:
+        typedef std::unique_ptr<State> Ptr;
 
-        sf::RenderWindow* window;
+        struct Context
+        {
+            Context(
+                    sf::RenderWindow& window,
+                    FontHolder& fonts,
+                    TextureHolder& textures,
+                    SoundPlayer& soundPlayer
+            );
 
-        FontHolder* fonts;
-        TextureHolder* textures;
-        SoundPlayer* soundPlayer;
+            sf::RenderWindow* window;
+
+            FontHolder* fonts;
+            TextureHolder* textures;
+            SoundPlayer* soundPlayer;
+        };
+
+    public:
+
+        State(StateStack& stack, Context ctx);
+        virtual ~State();
+
+        virtual void draw() = 0;
+        virtual bool update(sf::Time dt) = 0;
+        virtual bool handleEvent(const sf::Event& event) = 0;
+
+    protected:
+        void requestStackPush(States::ID stateID);
+        void requestStackPop();
+        void requestStateClear();
+
+        Context getContext() const;
+
+    private:
+        StateStack* stack;
+        Context ctx;
     };
-
-public:
-
-    State(StateStack& stack, Context ctx);
-    virtual ~State();
-
-    virtual void draw() = 0;
-    virtual bool update(sf::Time dt) = 0;
-    virtual bool handleEvent(const sf::Event& event) = 0;
-
-protected:
-    void requestStackPush(States::ID stateID);
-    void requestStackPop();
-    void requestStateClear();
-
-    Context getContext() const;
-
-private:
-    StateStack* stack;
-    Context ctx;
-};
-
+}
 
 #endif //TEST_STATE_H

@@ -5,16 +5,20 @@
 #ifndef TEST_STATEIDENTIFIERS_H
 #define TEST_STATEIDENTIFIERS_H
 
-namespace States
+namespace Engine
 {
-    enum class ID
+    namespace States
     {
-        None,
-        Menu,
-        Game,
-        Pause,
-        GameOver
-    };
+        enum class ID
+        {
+            None,
+            Menu,
+            Game,
+            Pause,
+            GameOver
+        };
+    }
 }
+
 
 #endif //TEST_STATEIDENTIFIERS_H

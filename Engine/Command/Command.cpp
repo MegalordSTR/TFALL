@@ -3,9 +3,12 @@
 //
 
 #include "Command.h"
-
-Command::Command(Action fn, Engine::CategoryType category)
+namespace Engine
 {
-    this->action = fn;
-    this->category = category;
+    Command::Command(Action fn, CategoryType category)
+    {
+        this->action = fn;
+        this->category = category;
+    }
 }
+

@@ -9,19 +9,23 @@
 #include "Command.h"
 #include <queue>
 
-class CommandQueue
+namespace Engine
 {
-public:
-    CommandQueue();
+    class CommandQueue
+    {
+    public:
+        CommandQueue();
 
-public:
-    void push(const Command& command);
-    Command pop();
-    bool isEmpty() const;
+    public:
+        void push(const Command& command);
+        Command pop();
+        bool isEmpty() const;
 
-private:
-    std::queue<Command> commands;
-};
+    private:
+        std::queue<Command> commands;
+    };
+}
+
 
 
 #endif //TEST_COMMANDQUEUE_H

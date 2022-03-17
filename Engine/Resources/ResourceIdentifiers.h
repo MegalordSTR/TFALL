@@ -3,6 +3,8 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
+
+
 namespace Engine
 {
 	namespace Resources
@@ -22,13 +24,13 @@ namespace Engine
 
 		};
 	}
+
+    template <typename Resource, typename Identifier>
+    class ResourceHolder;
+
+    typedef ResourceHolder<sf::Font, Resources::Font> FontHolder;
+    typedef ResourceHolder<sf::Texture, Resources::Texture> TextureHolder;
+    typedef ResourceHolder<sf::SoundBuffer, Resources::SoundEffect> SoundBufferHolder;
+
 }
-
-template <typename Resource, typename Identifier>
-class ResourceHolder;
-
-typedef ResourceHolder<sf::Font, Engine::Resources::Font> FontHolder;
-typedef ResourceHolder<sf::Texture, Engine::Resources::Texture> TextureHolder;
-typedef ResourceHolder<sf::SoundBuffer, Engine::Resources::SoundEffect> SoundBufferHolder;
-
 #endif

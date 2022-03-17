@@ -13,19 +13,23 @@
 
 #include <string>
 
-class TextNode : public SceneNode
+namespace Engine
 {
-public:
-    explicit TextNode(const FontHolder& fonts);
+    class TextNode : public SceneNode
+    {
+    public:
+        explicit TextNode(const FontHolder& fonts);
 
-    void setText(const std::string& str);
-private:
-    virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
-    virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
+        void setText(const std::string& str);
+    private:
+        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
+        virtual void updateCurrent(sf::Time dt, CommandQueue& commands);
 
-private:
-    sf::Text text;
-};
+    private:
+        sf::Text text;
+    };
+}
+
 
 
 #endif //TEST_TEXTNODE_H

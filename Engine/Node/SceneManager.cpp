@@ -5,23 +5,25 @@
 #include "SceneManager.h"
 #include <cassert>
 
-SceneManager::SceneManager()
-{
-}
+namespace Engine {
+    SceneManager::SceneManager()
+    {
+    }
 
-SceneManager::~SceneManager()
-{
-}
+    SceneManager::~SceneManager()
+    {
+    }
 
-void SceneManager::addLayer(Engine::Layer layer)
-{
-    layers.try_emplace(layer, std::make_shared<SceneNode>());
-}
+    void SceneManager::addLayer(Layer layer)
+    {
+        layers.try_emplace(layer, std::make_shared<SceneNode>());
+    }
 
-SceneNode& SceneManager::getLayer(Engine::Layer layer)
-{
-    auto found = layers.find(layer);
-    assert(found != layers.end());
+    SceneNode& SceneManager::getLayer(Layer layer)
+    {
+        auto found = layers.find(layer);
+        assert(found != layers.end());
 
-    return *found->second;
+        return *found->second;
+    }
 }

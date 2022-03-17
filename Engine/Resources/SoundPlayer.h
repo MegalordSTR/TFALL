@@ -12,20 +12,21 @@
 
 #include <list>
 
-class SoundPlayer : private sf::NonCopyable
-{
-public:
-    SoundPlayer();
+namespace Engine {
 
-    void play(Engine::Resources::SoundEffect id);
+    class SoundPlayer : private sf::NonCopyable {
+    public:
+        SoundPlayer();
 
-    void removeStoppedSounds();
+        void play(Resources::SoundEffect id);
 
-private:
-    SoundBufferHolder soundBuffers;
+        void removeStoppedSounds();
 
-    std::list<sf::Sound> playingSounds;
-};
+    private:
+        SoundBufferHolder soundBuffers;
 
+        std::list<sf::Sound> playingSounds;
+    };
+}
 
 #endif //TEST_SOUNDPLAYER_H

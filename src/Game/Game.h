@@ -4,7 +4,10 @@
 
 #ifndef TFALL_GAME_H
 #define TFALL_GAME_H
-#include "Node/SceneManager.h"
+#include "State/StateStack.h"
+#include <Resources/ResourceHolder.h>
+#include <Resources/ResourceIdentifiers.h>
+#include <Resources/SoundPlayer.h>
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -17,15 +20,20 @@ public:
     void Run();
 
 private:
-    void HandleEvents();
-    void Update(sf::Time dt);
-    void Render();
+    void handleInput();
+    void update(sf::Time dt);
+    void render();
 
 private:
     float targetFPS;
     sf::Time timePerFrame;
     sf::RenderWindow window;
-    SceneManager sm;
+
+    Engine::FontHolder fontHolder;
+    Engine::TextureHolder textureHolder;
+    Engine::SoundPlayer soundPlayer;
+
+    Engine::StateStack states;
 };
 
 #endif //TFALL_GAME_H

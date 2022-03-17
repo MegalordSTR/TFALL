@@ -20,20 +20,21 @@ namespace Engine
         World = 0,
         Sound = 1
     };
+
+
+    class SceneManager : private sf::NonCopyable
+    {
+    public:
+        explicit SceneManager();
+        ~SceneManager();
+
+        void addLayer(Layer layer);
+        SceneNode& getLayer(Layer layer);
+
+    private:
+        std::unordered_map<Layer, std::shared_ptr<SceneNode>> layers;
+    };
 }
-
-class SceneManager : private sf::NonCopyable
-{
-public:
-    explicit SceneManager();
-    ~SceneManager();
-
-    void addLayer(Engine::Layer layer);
-    SceneNode& getLayer(Engine::Layer layer);
-
-private:
-    std::unordered_map<Engine::Layer, std::shared_ptr<SceneNode>> layers;
-};
 
 
 #endif //TEST_SCENEMANAGER_H

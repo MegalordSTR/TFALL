@@ -81,7 +81,7 @@ find_path(SFML_DOC_DIR SFML.tag
           PATHS ${FIND_SFML_PATHS})
 
 
-# Update requested components (eg. request window component if graphics component was requested)
+# update requested components (eg. request window component if graphics component was requested)
 set(FIND_SFML_SYSTEM_DEPENDENCIES "")
 set(FIND_SFML_MAIN_DEPENDENCIES "")
 set(FIND_SFML_AUDIO_DEPENDENCIES system)

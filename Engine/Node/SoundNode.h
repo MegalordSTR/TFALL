@@ -8,16 +8,20 @@
 #include "SceneNode.h"
 #include <Resources/SoundPlayer.h>
 
-class SoundNode : public SceneNode
+namespace Engine
 {
-public:
-    explicit SoundNode(SoundPlayer& player);
+    class SoundNode : public SceneNode
+    {
+    public:
+        explicit SoundNode(SoundPlayer& player);
 
-    void playSound(Engine::Resources::SoundEffect sound);
+        void playSound(Resources::SoundEffect sound);
 
-private:
-    SoundPlayer& player;
-};
+    private:
+        SoundPlayer& player;
+    };
+}
+
 
 
 #endif //TEST_SOUNDNODE_H

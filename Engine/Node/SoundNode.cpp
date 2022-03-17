@@ -3,14 +3,16 @@
 //
 
 #include "SoundNode.h"
-
-SoundNode::SoundNode(SoundPlayer& player) :
-        player(player)
+namespace Engine
 {
-    setNodeCategory(Engine::CategoryType::SoundEffect);
-}
+    SoundNode::SoundNode(SoundPlayer& player) :
+            player(player)
+    {
+        setNodeCategory(CategoryType::SoundEffect);
+    }
 
-void SoundNode::playSound(Engine::Resources::SoundEffect sound)
-{
-    player.play(sound);
+    void SoundNode::playSound(Resources::SoundEffect sound)
+    {
+        player.play(sound);
+    }
 }
