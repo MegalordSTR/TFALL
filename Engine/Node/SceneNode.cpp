@@ -10,7 +10,7 @@
 SceneNode::SceneNode() :
         parent(nullptr),
         children(),
-        nodeType(Game::CategoryType::None)
+        nodeType(Engine::CategoryType::None)
 {
 }
 
@@ -71,7 +71,7 @@ void SceneNode::removeMarked()
     }
 }
 
-void SceneNode::setNodeCategory(Game::CategoryType type)
+void SceneNode::setNodeCategory(Engine::CategoryType type)
 {
     nodeType = type;
 }

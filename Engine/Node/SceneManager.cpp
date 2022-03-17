@@ -13,12 +13,12 @@ SceneManager::~SceneManager()
 {
 }
 
-void SceneManager::addLayer(Game::Layer layer)
+void SceneManager::addLayer(Engine::Layer layer)
 {
     layers.try_emplace(layer, std::make_shared<SceneNode>());
 }
 
-SceneNode& SceneManager::getLayer(Game::Layer layer)
+SceneNode& SceneManager::getLayer(Engine::Layer layer)
 {
     auto found = layers.find(layer);
     assert(found != layers.end());

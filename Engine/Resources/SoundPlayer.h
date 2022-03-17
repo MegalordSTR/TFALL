@@ -17,7 +17,7 @@ class SoundPlayer : private sf::NonCopyable
 public:
     SoundPlayer();
 
-    void play(Game::Resources::SoundEffect id);
+    void play(Engine::Resources::SoundEffect id);
 
     void removeStoppedSounds();
 

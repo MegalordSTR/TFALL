@@ -18,9 +18,9 @@ struct Command
 {
     typedef std::function<void(SceneNode&, sf::Time)> Action;
 
-    Command(Action fn, Game::CategoryType category);
+    Command(Action fn, Engine::CategoryType category);
     Action action;
-    Game::CategoryType category;
+    Engine::CategoryType category;
 };
 
 template<typename GameObject, typename Function>

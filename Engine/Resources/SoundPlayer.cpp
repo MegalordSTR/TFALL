@@ -11,7 +11,7 @@ SoundPlayer::SoundPlayer() :
     // TODO: подгрузить ресурсы
 }
 
-void SoundPlayer::play(Game::Resources::SoundEffect id)
+void SoundPlayer::play(Engine::Resources::SoundEffect id)
 {
     const sf::SoundBuffer& buffer = soundBuffers.get(id);
 

@@ -27,7 +27,7 @@ public:
     virtual bool isMarkedForRemoval() const;
     void removeMarked();
 
-    void setNodeCategory(Game::CategoryType type);
+    void setNodeCategory(Engine::CategoryType type);
 
 protected:
     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const override final;
@@ -42,7 +42,7 @@ private:
 private:
     SceneNode* parent;
     std::vector<std::unique_ptr<SceneNode>> children;
-    Game::CategoryType nodeType;
+    Engine::CategoryType nodeType;
 };
 
 

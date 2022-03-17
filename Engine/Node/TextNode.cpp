@@ -10,8 +10,8 @@ TextNode::TextNode(const FontHolder& fonts) :
         SceneNode(),
         text()
 {
-    text.setCharacterSize(static_cast<unsigned int>(Game::FontSize::PlayerInfo));
-    text.setFont(fonts.get(Game::Resources::Font::Main));
+    text.setCharacterSize(static_cast<unsigned int>(Engine::FontSize::PlayerInfo));
+    text.setFont(fonts.get(Engine::Resources::Font::Main));
 }
 
 void TextNode::setText(const std::string& str)

@@ -1,7 +1,7 @@
 #ifndef TEST_FONTCONSTS_H
 #define TEST_FONTCONSTS_H
 
-namespace Game
+namespace Engine
 {
 	enum class FontSize
 	{

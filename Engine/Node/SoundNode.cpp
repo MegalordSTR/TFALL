@@ -7,10 +7,10 @@
 SoundNode::SoundNode(SoundPlayer& player) :
         player(player)
 {
-    setNodeCategory(Game::CategoryType::SoundEffect);
+    setNodeCategory(Engine::CategoryType::SoundEffect);
 }
 
-void SoundNode::playSound(Game::Resources::SoundEffect sound)
+void SoundNode::playSound(Engine::Resources::SoundEffect sound)
 {
     player.play(sound);
 }

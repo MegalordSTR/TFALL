@@ -3,7 +3,7 @@
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
 
-namespace Game
+namespace Engine
 {
 	namespace Resources
 	{
@@ -11,8 +11,6 @@ namespace Game
 		{
 			Main
 		};
-
-		const int BubbleTexturesCount = 8;
 
 		enum class Texture
 		{
@@ -29,8 +27,8 @@ namespace Game
 template <typename Resource, typename Identifier>
 class ResourceHolder;
 
-typedef ResourceHolder<sf::Font, Game::Resources::Font> FontHolder;
-typedef ResourceHolder<sf::Texture, Game::Resources::Texture> TextureHolder;
-typedef ResourceHolder<sf::SoundBuffer, Game::Resources::SoundEffect> SoundBufferHolder;
+typedef ResourceHolder<sf::Font, Engine::Resources::Font> FontHolder;
+typedef ResourceHolder<sf::Texture, Engine::Resources::Texture> TextureHolder;
+typedef ResourceHolder<sf::SoundBuffer, Engine::Resources::SoundEffect> SoundBufferHolder;
 
 #endif

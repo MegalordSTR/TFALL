@@ -13,7 +13,7 @@
 #include <memory>
 
 
-namespace Game
+namespace Engine
 {
     enum class Layer : int
     {
@@ -28,11 +28,11 @@ public:
     explicit SceneManager();
     ~SceneManager();
 
-    void addLayer(Game::Layer layer);
-    SceneNode& getLayer(Game::Layer layer);
+    void addLayer(Engine::Layer layer);
+    SceneNode& getLayer(Engine::Layer layer);
 
 private:
-    std::unordered_map<Game::Layer, std::shared_ptr<SceneNode>> layers;
+    std::unordered_map<Engine::Layer, std::shared_ptr<SceneNode>> layers;
 };
 
 

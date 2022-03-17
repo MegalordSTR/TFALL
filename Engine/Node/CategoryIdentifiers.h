@@ -5,7 +5,7 @@
 #ifndef TEST_CATEGORYIDENTIFIERS_H
 #define TEST_CATEGORYIDENTIFIERS_H
 
-namespace Game {
+namespace Engine {
     enum class CategoryType : unsigned int {
         None = 0,
         SoundEffect = 1 << 0

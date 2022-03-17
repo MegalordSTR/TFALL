@@ -4,7 +4,7 @@
 
 #include "Command.h"
 
-Command::Command(Action fn, Game::CategoryType category)
+Command::Command(Action fn, Engine::CategoryType category)
 {
     this->action = fn;
     this->category = category;

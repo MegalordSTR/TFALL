@@ -36,7 +36,7 @@ add_executable(TFALL
         Engine/State/State.h
         Engine/State/StateIdentifiers.h
         Engine/State/StateStack.cpp
-        Engine/State/StateStack.h)
+        Engine/State/StateStack.h src/Game.cpp src/Game.h)
 
 # SFML
 target_link_libraries(TFALL sfml-system sfml-window sfml-graphics sfml-network sfml-audio)
