@@ -1,5 +1,7 @@
 # Project exclude paths
 /cmake-build-debug/
+/cmake-build-debug-coverage/
+/cmake-build-release/
 .idea
 /library/SFML-2.5.1/doc
 /library/SFML-2.5.1/examples

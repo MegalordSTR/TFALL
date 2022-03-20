@@ -1,9 +1,20 @@
-#include "Game/Game.h"
+#include "App.hpp"
+
+#include <stdexcept>
+#include <iostream>
 
 int main()
 {
-    Game game(800, 600, 60.f);
-    game.Run();
+
+
+    App game(800, 580, 60.f);
+    try
+    {
+        game.Run();
+    }
+    catch (std::exception& e) {
+        std::cout << e.what();
+    }
 
     return 0;
 }
