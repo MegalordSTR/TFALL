@@ -6,9 +6,9 @@
 #define TEST_SOUNDNODE_H
 
 #include "SceneNode.hpp"
-#include <Engine/Resources/SoundPlayer.hpp>
+#include <MW/Resources/SoundPlayer.hpp>
 
-namespace Engine
+namespace MW
 {
     class SoundNode : public SceneNode
     {

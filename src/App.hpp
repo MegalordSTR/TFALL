@@ -4,10 +4,10 @@
 
 #ifndef TFALL_APP_HPP
 #define TFALL_APP_HPP
-#include "Engine/State/StateStack.hpp"
-#include "Engine/Resources/ResourceHolder.hpp"
-#include "Engine/Resources/ResourceIdentifiers.hpp"
-#include "Engine/Resources/SoundPlayer.hpp"
+#include "MW/State/StateStack.hpp"
+#include "MW/Resources/ResourceHolder.hpp"
+#include "MW/Resources/ResourceIdentifiers.hpp"
+#include "MW/Resources/SoundPlayer.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -29,11 +29,11 @@ private:
     sf::Time timePerFrame;
     sf::RenderWindow window;
 
-    Engine::FontHolder fontHolder;
-    Engine::TextureHolder textureHolder;
-    Engine::SoundPlayer soundPlayer;
+    MW::FontHolder fontHolder;
+    MW::TextureHolder textureHolder;
+    MW::SoundPlayer soundPlayer;
 
-    Engine::StateStack states;
+    MW::StateStack states;
 };
 
 #endif //TFALL_APP_HPP

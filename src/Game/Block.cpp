@@ -3,7 +3,7 @@
 //
 
 #include "Block.hpp"
-#include <Engine/Utility/Utility.h>
+#include <MW/Utility/Utility.h>
 
 Block::Block(sf::Vector2u size, int margin, sf::Texture& texture, sf::IntRect textureRect) :
     posX(0),
@@ -35,7 +35,7 @@ void Block::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const
     target.draw(sprite, states);
 }
 
-void Block::updateCurrent(sf::Time dt, Engine::CommandQueue &commands) {
+void Block::updateCurrent(sf::Time dt, MW::CommandQueue &commands) {
 
 }
 
@@ -44,4 +44,8 @@ void Block::move(sf::Vector2i diff) {
     posY += diff.y;
 
     setPosition(sf::Vector2f(static_cast<float>(posX*size.x), static_cast<float>(posY*size.x)));
+}
+
+sf::Vector2i Block::getGridPosition() {
+    return {posX, posY};
 }

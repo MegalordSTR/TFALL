@@ -12,36 +12,36 @@ set(SFML_DIR "./library/SFML-2.5.1/lib/cmake/SFML")
 find_package(SFML 2.5 COMPONENTS system window graphics network audio REQUIRED)
 add_executable(TFALL
         src/main.cpp
-        Frameworks/Engine/Node/SceneNode.cpp
-        Frameworks/Engine/Node/SceneNode.hpp
-        Frameworks/Engine/Resources/FontConsts.hpp
-        Frameworks/Engine/Resources/ResourceIdentifiers.hpp
-        Frameworks/Engine/Resources/ResourceHolder.hpp
-        Frameworks/Engine/Utility/Utility.cpp
-        Frameworks/Engine/Utility/Utility.h
-        Frameworks/Engine/Node/CategoryIdentifiers.hpp
-        Frameworks/Engine/Node/SceneManager.cpp
-        Frameworks/Engine/Node/SceneManager.hpp
-        Frameworks/Engine/Node/SoundNode.cpp
-        Frameworks/Engine/Node/SoundNode.hpp
-        Frameworks/Engine/Node/TextNode.cpp
-        Frameworks/Engine/Node/TextNode.hpp
-        Frameworks/Engine/Resources/SoundPlayer.cpp
-        Frameworks/Engine/Resources/SoundPlayer.hpp
-        Frameworks/Engine/Command/Command.cpp
-        Frameworks/Engine/Command/Command.hpp
-        Frameworks/Engine/Command/CommandQueue.cpp
-        Frameworks/Engine/Command/CommandQueue.hpp
-        Frameworks/Engine/State/State.cpp
-        Frameworks/Engine/State/State.hpp
-        Frameworks/Engine/State/StateIdentifiers.hpp
-        Frameworks/Engine/State/StateStack.cpp
-        Frameworks/Engine/State/StateStack.hpp
+        Frameworks/MW/Node/SceneNode.cpp
+        Frameworks/MW/Node/SceneNode.hpp
+        Frameworks/MW/Resources/FontConsts.hpp
+        Frameworks/MW/Resources/ResourceIdentifiers.hpp
+        Frameworks/MW/Resources/ResourceHolder.hpp
+        Frameworks/MW/Utility/Utility.cpp
+        Frameworks/MW/Utility/Utility.h
+        Frameworks/MW/Node/CategoryIdentifiers.hpp
+        Frameworks/MW/Node/SceneManager.cpp
+        Frameworks/MW/Node/SceneManager.hpp
+        Frameworks/MW/Node/SoundNode.cpp
+        Frameworks/MW/Node/SoundNode.hpp
+        Frameworks/MW/Node/TextNode.cpp
+        Frameworks/MW/Node/TextNode.hpp
+        Frameworks/MW/Resources/SoundPlayer.cpp
+        Frameworks/MW/Resources/SoundPlayer.hpp
+        Frameworks/MW/Command/Command.cpp
+        Frameworks/MW/Command/Command.hpp
+        Frameworks/MW/Command/CommandQueue.cpp
+        Frameworks/MW/Command/CommandQueue.hpp
+        Frameworks/MW/State/State.cpp
+        Frameworks/MW/State/State.hpp
+        Frameworks/MW/State/StateIdentifiers.hpp
+        Frameworks/MW/State/StateStack.cpp
+        Frameworks/MW/State/StateStack.hpp
         src/App.cpp
         src/App.hpp
         src/States/GameState.cpp
         src/States/GameState.hpp
-        src/Game/World.cpp src/Game/World.hpp src/Game/Grid.cpp src/Game/Grid.hpp src/Game/Block.cpp src/Game/Block.hpp src/Game/Figure.cpp src/Game/Figure.hpp)
+        src/Game/World.cpp src/Game/World.hpp src/Game/Grid.cpp src/Game/Grid.hpp src/Game/Block.cpp src/Game/Block.hpp src/Game/Figure.cpp src/Game/Figure.hpp src/Game/Player.cpp src/Game/Player.hpp)
 
 # SFML
 target_link_libraries(TFALL sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

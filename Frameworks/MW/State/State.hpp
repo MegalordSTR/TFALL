@@ -7,15 +7,15 @@
 
 
 #include "StateIdentifiers.hpp"
-#include <Engine/Resources/ResourceIdentifiers.hpp>
-#include <Engine/Resources/SoundPlayer.hpp>
+#include <MW/Resources/ResourceIdentifiers.hpp>
+#include <MW/Resources/SoundPlayer.hpp>
 
 #include <SFML/Graphics.hpp>
 
 #include <memory>
 
 
-namespace Engine
+namespace MW
 {
     class StateStack;
 

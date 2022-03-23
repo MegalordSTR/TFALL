@@ -5,7 +5,7 @@
 
 
 
-namespace Engine
+namespace MW
 {
 	namespace Resources
 	{

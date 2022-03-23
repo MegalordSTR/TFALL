@@ -5,7 +5,7 @@
 #include "SceneManager.hpp"
 #include <cassert>
 
-namespace Engine {
+namespace MW {
     SceneManager::SceneManager()
     {
     }

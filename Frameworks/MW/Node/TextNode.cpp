@@ -3,10 +3,10 @@
 //
 
 #include "TextNode.hpp"
-#include <Engine/Resources/FontConsts.hpp>
+#include <MW/Resources/FontConsts.hpp>
 #include <cmath>
 
-namespace Engine
+namespace MW
 {
     TextNode::TextNode(const FontHolder& fonts) :
             SceneNode(),

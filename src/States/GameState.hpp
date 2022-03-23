@@ -7,11 +7,13 @@
 
 #include <Game/World.hpp>
 
-#include "Engine/State/State.hpp"
+#include <Game/Player.hpp>
 
-class GameState : public Engine::State {
+#include "MW/State/State.hpp"
+
+class GameState : public MW::State {
 public:
-    GameState(Engine::StateStack &stack, const Context &ctx);
+    GameState(MW::StateStack &stack, const Context &ctx);
 
 public:
 
@@ -26,6 +28,7 @@ private:
 
 private:
     World world;
+    Player player;
     sf::Time timeElapsed;
     sf::Time tickTime;
 };

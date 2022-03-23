@@ -6,7 +6,7 @@
 #include <cassert>
 #include <stdexcept>
 
-namespace Engine
+namespace MW
 {
     template <typename Resource, typename Identifier>
     class ResourceHolder

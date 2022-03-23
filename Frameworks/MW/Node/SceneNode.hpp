@@ -5,7 +5,7 @@
 #ifndef TEST_SCENENODE_H
 #define TEST_SCENENODE_H
 
-#include <Engine/Command/CommandQueue.hpp>
+#include <MW/Command/CommandQueue.hpp>
 #include "CategoryIdentifiers.hpp"
 
 #include <SFML/Graphics.hpp>
@@ -13,7 +13,7 @@
 #include <vector>
 #include <memory>
 
-namespace Engine
+namespace MW
 {
 class SceneNode : public sf::Drawable, public sf::Transformable, private sf::NonCopyable, private std::enable_shared_from_this<SceneNode>
     {

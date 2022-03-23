@@ -7,12 +7,12 @@
 #include <cassert>
 #include <memory>
 
-namespace Engine
+namespace MW
 {
     SceneNode::SceneNode() :
             parent(),
             children(),
-            nodeType(CategoryType::None)
+            nodeType(CategoryType::TypeNone)
     {
     }
 

@@ -4,7 +4,7 @@
 
 #include "SoundPlayer.hpp"
 
-namespace Engine {
+namespace MW {
 
     SoundPlayer::SoundPlayer() :
             soundBuffers(),

@@ -12,7 +12,7 @@
 
 #include <list>
 
-namespace Engine {
+namespace MW {
 
     class SoundPlayer : private sf::NonCopyable {
     public:

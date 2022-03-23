@@ -5,10 +5,11 @@
 #ifndef TEST_CATEGORYIDENTIFIERS_H
 #define TEST_CATEGORYIDENTIFIERS_H
 
-namespace Engine {
+namespace MW {
     enum class CategoryType : unsigned int {
-        None = 0,
-        SoundEffect = 1 << 0
+        TypeNone = 0,
+        TypeSoundEffect = 1 << 0,
+        TypeFigure = 1 << 1
     };
 }
 

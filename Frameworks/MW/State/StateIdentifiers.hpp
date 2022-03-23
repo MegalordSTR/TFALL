@@ -5,7 +5,7 @@
 #ifndef TEST_STATEIDENTIFIERS_H
 #define TEST_STATEIDENTIFIERS_H
 
-namespace Engine
+namespace MW
 {
     namespace States
     {

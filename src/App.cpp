@@ -3,7 +3,7 @@
 //
 
 #include "App.hpp"
-#include "Engine/State/StateIdentifiers.hpp"
+#include "MW/State/StateIdentifiers.hpp"
 #include "States/GameState.hpp"
 
 App::App(int windowWidth, int windowHeight, float targetFPS) :
@@ -13,13 +13,14 @@ App::App(int windowWidth, int windowHeight, float targetFPS) :
         fontHolder(),
         textureHolder(),
         soundPlayer(),
-        states(Engine::State::Context(window, fontHolder, textureHolder, soundPlayer))
+        states(MW::State::Context(window, fontHolder, textureHolder, soundPlayer))
 {
-    textureHolder.load(Engine::Resources::Texture::Block, "blocks.png");
+    window.setKeyRepeatEnabled(false);
+    textureHolder.load(MW::Resources::Texture::Block, "blocks.png");
 
-    states.registerState<GameState>(Engine::States::ID::Game);
+    states.registerState<GameState>(MW::States::ID::Game);
 
-    states.pushState(Engine::States::ID::Game);
+    states.pushState(MW::States::ID::Game);
 }
 
 void App::Run() {

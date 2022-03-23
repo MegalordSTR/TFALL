@@ -5,7 +5,7 @@
 #include "State.hpp"
 #include "StateStack.hpp"
 
-namespace Engine
+namespace MW
 {
     State::State(StateStack& stack, Context ctx) :
             stack(&stack),

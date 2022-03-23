@@ -1,7 +1,7 @@
 #ifndef TEST_FONTCONSTS_H
 #define TEST_FONTCONSTS_H
 
-namespace Engine
+namespace MW
 {
 	enum class FontSize
 	{

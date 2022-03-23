@@ -5,9 +5,9 @@
 #ifndef TFALL_BLOCK_HPP
 #define TFALL_BLOCK_HPP
 
-#include <Engine/Node/SceneNode.hpp>
+#include <MW/Node/SceneNode.hpp>
 
-class Block : public Engine::SceneNode {
+class Block : public MW::SceneNode {
 public:
     Block(sf::Vector2u size, int margin, sf::Texture& texture, sf::IntRect textureRect);
 
@@ -16,11 +16,12 @@ public:
     bool isMarkedForRemoval() const override;
 
     void move(sf::Vector2i diff);
+    sf::Vector2i getGridPosition();
 
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
 
-    void updateCurrent(sf::Time dt, Engine::CommandQueue &commands) override;
+    void updateCurrent(sf::Time dt, MW::CommandQueue &commands) override;
 
 private:
     int posX;

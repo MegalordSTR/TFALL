@@ -5,7 +5,7 @@
 #ifndef TFALL_FIGURE_HPP
 #define TFALL_FIGURE_HPP
 
-#include <Engine/Node/SceneNode.hpp>
+#include <MW/Node/SceneNode.hpp>
 
 #include "Block.hpp"
 
@@ -14,14 +14,8 @@
 
 
 
-class Figure : public Engine::SceneNode {
+class Figure : public MW::SceneNode {
 public:
-    enum class RotateDirection
-    {
-        Left = 0,
-        Right = 1
-    };
-
     Figure(bool isStatic);
 
     virtual ~Figure();
@@ -29,20 +23,24 @@ public:
     void attachBlock(const std::shared_ptr<Block>& ptr);
     std::shared_ptr<Block> detachBlock(const Block& node);
 
-    void rotate(RotateDirection dir);
+    void rotateRight();
+    void move(sf::Vector2i diff);
+    bool isPlayerMovable() const;
 
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
-
-    void updateCurrent(sf::Time dt, Engine::CommandQueue &commands) override;
+    void updateCurrent(sf::Time dt, MW::CommandQueue &commands) override;
 
     std::vector<int> getFullLinesNums();
-
     void moveDownLinesAbove(std::vector<int> lines);
+    bool checkValidOfBlocksPositions();
+
+    int calculateFigureSize();
 
 private:
     bool isStatic;
 
+private:
     std::vector<std::weak_ptr<Block>> blocks;
 };
 

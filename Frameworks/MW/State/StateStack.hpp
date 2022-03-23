@@ -16,7 +16,7 @@
 #include <memory>
 #include <functional>
 
-namespace Engine
+namespace MW
 {
     class StateStack : sf::NonCopyable
     {

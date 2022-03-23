@@ -7,9 +7,9 @@
 
 #include "Grid.hpp"
 
-#include <Engine/Command/CommandQueue.hpp>
-#include <Engine/Node/SceneManager.hpp>
-#include <Engine/Node/SoundNode.hpp>
+#include <MW/Command/CommandQueue.hpp>
+#include <MW/Node/SceneManager.hpp>
+#include <MW/Node/SoundNode.hpp>
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -18,20 +18,22 @@
 
 class World {
 public:
-    World(sf::RenderWindow& window, Engine::SoundPlayer& soundPlayer, Engine::TextureHolder& textureHolder);
+    World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::TextureHolder& textureHolder);
 
     ~World();
 
     void update(sf::Time dt);
     void draw();
 
-private:
-    Engine::CommandQueue commandQueue;
-    Engine::SceneManager sceneManager;
+    MW::CommandQueue& getCommandQueue();
 
-    sf::RectangleShape backgroundBig;
-    sf::RectangleShape backgroundMap;
-    Engine::SoundPlayer& soundPlayer;
+private:
+    MW::CommandQueue commandQueue;
+    MW::SceneManager sceneManager;
+
+    sf::RectangleShape infoPanel;
+    sf::RectangleShape mapPanel;
+    MW::SoundPlayer& soundPlayer;
 
     sf::RenderWindow& window;
     sf::View worldView;

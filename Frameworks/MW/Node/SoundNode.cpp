@@ -3,12 +3,12 @@
 //
 
 #include "SoundNode.hpp"
-namespace Engine
+namespace MW
 {
     SoundNode::SoundNode(SoundPlayer& player) :
             player(player)
     {
-        setNodeCategory(CategoryType::SoundEffect);
+        setNodeCategory(CategoryType::TypeSoundEffect);
     }
 
     void SoundNode::playSound(Resources::SoundEffect sound)

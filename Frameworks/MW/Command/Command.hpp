@@ -6,13 +6,13 @@
 #define TEST_COMMAND_H
 
 
-#include <Engine/Node/CategoryIdentifiers.hpp>
+#include <MW/Node/CategoryIdentifiers.hpp>
 
 #include <SFML/Graphics.hpp>
 #include <functional>
 #include <cassert>
 
-namespace Engine
+namespace MW
 {
     class SceneNode;
 

@@ -5,7 +5,7 @@
 #ifndef TEST_SCENEMANAGER_H
 #define TEST_SCENEMANAGER_H
 
-#include <Engine/Node/SceneNode.hpp>
+#include <MW/Node/SceneNode.hpp>
 
 #include <SFML/System/NonCopyable.hpp>
 
@@ -13,7 +13,7 @@
 #include <memory>
 
 
-namespace Engine
+namespace MW
 {
     enum class Layer : int
     {

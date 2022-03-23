@@ -7,7 +7,7 @@ int main()
 {
 
 
-    App game(800, 580, 60.f);
+    App game(1200, 720, 60.f);
     try
     {
         game.Run();

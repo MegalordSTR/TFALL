@@ -9,7 +9,7 @@
 #include "Command.hpp"
 #include <queue>
 
-namespace Engine
+namespace MW
 {
     class CommandQueue
     {

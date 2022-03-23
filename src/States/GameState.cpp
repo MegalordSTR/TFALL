@@ -4,11 +4,12 @@
 
 #include "GameState.hpp"
 
-GameState::GameState(Engine::StateStack &stack, const Engine::State::Context &ctx) :
+GameState::GameState(MW::StateStack &stack, const MW::State::Context &ctx) :
     State(stack, ctx),
-    world(*ctx.window, *ctx.soundPlayer, *ctx.textures)
+    world(*ctx.window, *ctx.soundPlayer, *ctx.textures),
+    player()
 {
-    tickTime = sf::seconds(5);
+    tickTime = sf::seconds(1);
 }
 
 GameState::~GameState() {
@@ -31,6 +32,7 @@ bool GameState::update(sf::Time dt) {
 }
 
 bool GameState::handleEvent(const sf::Event &event) {
+    player.handleInputEvents(event, world.getCommandQueue());
     return true;
 }
 

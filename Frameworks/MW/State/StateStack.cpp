@@ -6,7 +6,7 @@
 
 #include <cassert>
 
-namespace Engine
+namespace MW
 {
     StateStack::StateStack(State::Context ctx) :
             states(),

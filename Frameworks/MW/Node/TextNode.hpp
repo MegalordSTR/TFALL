@@ -6,14 +6,14 @@
 #define TEST_TEXTNODE_H
 
 #include "SceneNode.hpp"
-#include <Engine/Resources/ResourceHolder.hpp>
-#include <Engine/Resources/ResourceIdentifiers.hpp>
+#include <MW/Resources/ResourceHolder.hpp>
+#include <MW/Resources/ResourceIdentifiers.hpp>
 
 #include <SFML/Graphics.hpp>
 
 #include <string>
 
-namespace Engine
+namespace MW
 {
     class TextNode : public SceneNode
     {

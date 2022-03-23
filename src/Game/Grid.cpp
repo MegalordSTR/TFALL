@@ -41,6 +41,6 @@ void Grid::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const 
     }
 }
 
-void Grid::updateCurrent(sf::Time dt, Engine::CommandQueue &commands) {
+void Grid::updateCurrent(sf::Time dt, MW::CommandQueue &commands) {
 
 }

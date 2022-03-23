@@ -3,7 +3,7 @@
 //
 
 #include "Command.hpp"
-namespace Engine
+namespace MW
 {
     Command::Command(Action fn, CategoryType category)
     {
