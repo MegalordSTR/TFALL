@@ -14,8 +14,23 @@
 
 class Grid : public MW::SceneNode {
 public:
-    Grid(float xSize, float ySize, sf::Color gridColor = sf::Color::Black, float unitGridSize = 10.f, float gridThickness = 2.f);
+    struct GridSettings
+    {
+        float xSize;
+        float ySize;
+        float unitGridSize;
+
+        GridSettings(const float xSize, const float ySize, const float unitGridSize = 10.f) :
+            xSize(xSize),
+            ySize(ySize),
+            unitGridSize(unitGridSize)
+        {}
+    };
+
+    Grid(const GridSettings& gridSettings, const sf::Color gridColor = sf::Color::Black, const float gridThickness = 2.f);
     ~Grid() override;
+
+    const GridSettings& getGridSettings();
 
 private:
     void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -24,6 +39,7 @@ private:
 
 private:
     std::vector<std::unique_ptr<sf::RectangleShape>> lines;
+    GridSettings settings;
 };
 
 

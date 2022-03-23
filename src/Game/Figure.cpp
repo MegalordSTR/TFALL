@@ -4,10 +4,17 @@
 
 #include "Figure.hpp"
 
-Figure::Figure(bool isStatic) :
-    isStatic(isStatic)
+Figure::Figure(const Grid::GridSettings& gridSettings, bool isStatic) :
+        gridSettings(gridSettings),
+        isStatic(isStatic),
+        drawRect(false),
+        figureRectShape(),
+        gridFigureRect()
 {
     setNodeCategory(MW::CategoryType::TypeFigure);
+    figureRectShape.setFillColor(sf::Color::Transparent);
+    figureRectShape.setOutlineColor(sf::Color::Red);
+    figureRectShape.setOutlineThickness(1.f);
 }
 
 Figure::~Figure() {
@@ -15,7 +22,8 @@ Figure::~Figure() {
 }
 
 void Figure::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
-
+    if (drawRect)
+        target.draw(figureRectShape, states);
 }
 
 void Figure::updateCurrent(sf::Time dt, MW::CommandQueue &commands) {
@@ -31,11 +39,15 @@ void Figure::updateCurrent(sf::Time dt, MW::CommandQueue &commands) {
             }
         }
     }
+
+    calculateFigureRect();
 }
 
 void Figure::attachBlock(const std::shared_ptr<Block>& ptr) {
     attachChild(ptr);
     blocks.push_back(std::weak_ptr(ptr));
+
+    calculateFigureRect();
 }
 
 std::shared_ptr<Block> Figure::detachBlock(const Block& node) {
@@ -56,19 +68,25 @@ std::shared_ptr<Block> Figure::detachBlock(const Block& node) {
 
     std::shared_ptr<Block> result = found->lock();
     blocks.erase(found);
+
+    calculateFigureRect();
     return result;
 }
 
 void Figure::rotateRight() {
-    int figureSize = calculateFigureSize();
     for (auto& item : blocks)
     {
         if (auto block = item.lock())
         {
             auto pos = block->getGridPosition();
-            block->move(sf::Vector2i(figureSize - pos.y, pos.x));
+            block->setGridPosition(sf::Vector2i(
+                    gridFigureRect.left + gridFigureRect.top - pos.y + 1, // NOTE: +1 только для того, чтобы фигура меньше съезжала
+                    pos.x + gridFigureRect.top - gridFigureRect.left
+                    ));
         }
     }
+
+    calculateFigureRect();
 }
 
 std::vector<int> Figure::getFullLinesNums() {
@@ -125,28 +143,52 @@ bool Figure::checkValidOfBlocksPositions()
     // TODO добавить границы для блоков
 }
 
-int Figure::calculateFigureSize() {
-    int minX, minY;
-    int maxX, maxY;
+void Figure::switchDrawRect() {
+    drawRect = !drawRect;
+}
+
+sf::IntRect Figure::calculateFigureRect() {
+    int minX, minY, maxX, maxY;
     minX = minY = maxX = maxY = 0;
 
-    for (auto& item : blocks)
+    if (!blocks.empty())
     {
-        if (auto block = item.lock())
+        if (auto block = blocks.front().lock())
         {
             auto pos = block->getGridPosition();
-            if (pos.x < minX)
-                minX = pos.x;
-            if (pos.x > maxX)
-                maxX = pos.x;
-            if (pos.x < minY)
-                minY = pos.y;
-            if (pos.x > maxY)
-                maxY = pos.y;
+            minX = maxX = pos.x;
+            minY = maxY = pos.y;
+        }
+
+        for (auto& item : blocks)
+        {
+            if (auto block = item.lock())
+            {
+                auto pos = block->getGridPosition();
+                if (pos.x < minX)
+                    minX = pos.x;
+                if (pos.x > maxX)
+                    maxX = pos.x;
+                if (pos.y < minY)
+                    minY = pos.y;
+                if (pos.y > maxY)
+                    maxY = pos.y;
+            }
         }
     }
 
-    return std::max(maxX - minX, maxY - minY);
+    int sideLength = std::max(maxX-minX, maxY-minY)+1;
+    gridFigureRect = {
+            minX,
+            minY,
+            sideLength,
+            sideLength
+    };
+
+    figureRectShape.setSize(sf::Vector2f(static_cast<float>(gridFigureRect.width), static_cast<float>(gridFigureRect.height))*gridSettings.unitGridSize);
+    figureRectShape.setPosition(sf::Vector2f(static_cast<float>(gridFigureRect.left), static_cast<float>(gridFigureRect.top))*gridSettings.unitGridSize);
+
+    return gridFigureRect;
 }
 
 #pragma clang diagnostic pop

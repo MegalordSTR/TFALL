@@ -7,16 +7,20 @@
 
 #include <MW/Node/SceneNode.hpp>
 
+#include "Grid.hpp"
+
 class Block : public MW::SceneNode {
 public:
-    Block(sf::Vector2u size, int margin, sf::Texture& texture, sf::IntRect textureRect);
+    Block(const Grid::GridSettings gridSettings, float margin, sf::Texture& texture, sf::IntRect textureRect);
 
     virtual ~Block();
 
     bool isMarkedForRemoval() const override;
 
     void move(sf::Vector2i diff);
-    sf::Vector2i getGridPosition();
+    void setGridPosition(sf::Vector2i pos);
+
+    sf::Vector2i getGridPosition() const;
 
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
@@ -24,9 +28,10 @@ private:
     void updateCurrent(sf::Time dt, MW::CommandQueue &commands) override;
 
 private:
+    Grid::GridSettings gridSettings;
+
     int posX;
     int posY;
-    sf::Vector2u size;
 
     bool inFullLine;
 

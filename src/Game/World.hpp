@@ -39,7 +39,7 @@ private:
     sf::View worldView;
 
     std::weak_ptr<Grid> grid;
-    int gridMargin;
+    float gridMargin;
 };
 
 

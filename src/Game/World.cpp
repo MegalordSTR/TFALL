@@ -39,16 +39,14 @@ World::World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::Texture
     mapPanel.setOutlineColor(sf::Color::Black);
 
     // Сетка
-    float unitGridSize = 40;
     float gridThickness = 1;
-    gridMargin = 1;
+    gridMargin = 1.f;
+    Grid::GridSettings gridSettings(mapSize.x,mapSize.y,40);
 
     auto gridColor = sf::Color(0,0,0,25);
     auto gridNode = std::make_shared<Grid>(
-            mapSize.x,
-            mapSize.y,
+            gridSettings,
             gridColor,
-            unitGridSize,
             gridThickness
     );
 
@@ -65,25 +63,25 @@ World::World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::Texture
     sf::Texture t;
     sf::Sprite s;
     auto testBlock = std::make_shared<Block>(
-            sf::Vector2u(static_cast<unsigned int>(unitGridSize), static_cast<unsigned int>(unitGridSize)),
+            gridSettings,
             gridMargin,
             textureHolder.get(MW::Resources::Texture::Block),
             sf::IntRect(0,0,30, 30)
             );
     auto testBlock2 = std::make_shared<Block>(
-            sf::Vector2u(static_cast<unsigned int>(unitGridSize), static_cast<unsigned int>(unitGridSize)),
+            gridSettings,
             gridMargin,
             textureHolder.get(MW::Resources::Texture::Block),
             sf::IntRect(0,0,30, 30)
             );
     auto testBlock3 = std::make_shared<Block>(
-            sf::Vector2u(static_cast<unsigned int>(unitGridSize), static_cast<unsigned int>(unitGridSize)),
+            gridSettings,
             gridMargin,
             textureHolder.get(MW::Resources::Texture::Block),
             sf::IntRect(0,0,30, 30)
             );
     auto testBlock4 = std::make_shared<Block>(
-            sf::Vector2u(static_cast<unsigned int>(unitGridSize), static_cast<unsigned int>(unitGridSize)),
+            gridSettings,
             gridMargin,
             textureHolder.get(MW::Resources::Texture::Block),
             sf::IntRect(0,0,30, 30)
@@ -91,7 +89,7 @@ World::World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::Texture
 
 
 
-    auto figure = std::make_shared<Figure>(false);
+    auto figure = std::make_shared<Figure>(gridSettings, false);
     figure->setOrigin(mapPanel.getOrigin());
     figure->setPosition(mapPanel.getPosition());
 
@@ -107,6 +105,7 @@ World::World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::Texture
 
     frontLayer.attachChild(figure);
 
+    figure->switchDrawRect();
     // Музыка
     // soundPlayer.play(MW::Resources::TypeSoundEffect::Background); // TODO включить музыку и вынести в отд контейнер
 }

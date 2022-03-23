@@ -8,6 +8,7 @@
 #include <MW/Node/SceneNode.hpp>
 
 #include "Block.hpp"
+#include "Grid.hpp"
 
 #include <vector>
 #include <memory>
@@ -16,7 +17,7 @@
 
 class Figure : public MW::SceneNode {
 public:
-    Figure(bool isStatic);
+    Figure(const Grid::GridSettings& gridSettings, bool isStatic);
 
     virtual ~Figure();
 
@@ -27,6 +28,8 @@ public:
     void move(sf::Vector2i diff);
     bool isPlayerMovable() const;
 
+    void switchDrawRect();
+
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
     void updateCurrent(sf::Time dt, MW::CommandQueue &commands) override;
@@ -35,13 +38,17 @@ private:
     void moveDownLinesAbove(std::vector<int> lines);
     bool checkValidOfBlocksPositions();
 
-    int calculateFigureSize();
+    sf::IntRect calculateFigureRect();
 
 private:
+    Grid::GridSettings gridSettings;
+
     bool isStatic;
-
-private:
     std::vector<std::weak_ptr<Block>> blocks;
+
+    sf::RectangleShape figureRectShape;
+    sf::IntRect gridFigureRect;
+    bool drawRect;
 };
 
 

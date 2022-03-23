@@ -5,21 +5,19 @@
 #include "Block.hpp"
 #include <MW/Utility/Utility.h>
 
-Block::Block(sf::Vector2u size, int margin, sf::Texture& texture, sf::IntRect textureRect) :
+Block::Block(const Grid::GridSettings gridSettings, float margin, sf::Texture& texture, sf::IntRect textureRect) :
+    gridSettings(gridSettings),
     posX(0),
     posY(0),
-    size(size),
     inFullLine(false)
 {
-
-
-    auto newSize = sf::Vector2u(size.x - 2*margin, size.y - 2*margin);
+    auto newSize = sf::Vector2f(gridSettings.unitGridSize - 2*margin, gridSettings.unitGridSize - 2*margin);
     sprite.setTexture(texture);
     sprite.setTextureRect(textureRect);
-    auto textureScaleRatio = vectorScaleRatio(newSize, sf::Vector2u(textureRect.width, textureRect.height));
-    sprite.setScale(static_cast<float>(textureScaleRatio.x), static_cast<float>(textureScaleRatio.y));
+    auto textureScaleRatio = vectorScaleRatio(newSize, sf::Vector2f(static_cast<float>(textureRect.width), static_cast<float>(textureRect.height)));
+    sprite.setScale(textureScaleRatio.x, textureScaleRatio.y);
 
-    auto origin = sf::Vector2f(static_cast<float>(-margin) / textureScaleRatio.x, static_cast<float>(-margin) / textureScaleRatio.y);
+    auto origin = sf::Vector2f(-margin / textureScaleRatio.x, -margin / textureScaleRatio.y);
     sprite.setOrigin(origin);
 }
 
@@ -40,12 +38,17 @@ void Block::updateCurrent(sf::Time dt, MW::CommandQueue &commands) {
 }
 
 void Block::move(sf::Vector2i diff) {
-    posX += diff.x;
-    posY += diff.y;
-
-    setPosition(sf::Vector2f(static_cast<float>(posX*size.x), static_cast<float>(posY*size.x)));
+    setGridPosition(sf::Vector2i(posX + diff.x, posY + diff.y));
 }
 
-sf::Vector2i Block::getGridPosition() {
+void Block::setGridPosition(sf::Vector2i pos) {
+    posX = pos.x;
+    posY = pos.y;
+
+    setPosition(sf::Vector2f(static_cast<float>(posX), static_cast<float>(posY))*gridSettings.unitGridSize);
+}
+
+sf::Vector2i Block::getGridPosition() const {
     return {posX, posY};
 }
+
