@@ -3,6 +3,7 @@
 //
 
 #include "Figure.hpp"
+#include <cmath>
 
 Figure::Figure(const Grid::GridSettings& gridSettings, bool isStatic) :
         gridSettings(gridSettings),
@@ -80,13 +81,17 @@ void Figure::rotateRight() {
         {
             auto pos = block->getGridPosition();
             block->setGridPosition(sf::Vector2i(
-                    gridFigureRect.left + gridFigureRect.top - pos.y + 1, // NOTE: +1 только для того, чтобы фигура меньше съезжала
+                    gridFigureRect.left + gridFigureRect.top - pos.y + (gridFigureRect.width/2), // NOTE: только для того, чтобы фигура не съезжала
                     pos.x + gridFigureRect.top - gridFigureRect.left
                     ));
         }
     }
 
     calculateFigureRect();
+    if (!checkValidOfBlocksPositions())
+    {
+        move(sf::Vector2i(1, 0));
+    }
 }
 
 std::vector<int> Figure::getFullLinesNums() {
@@ -131,7 +136,9 @@ bool Figure::checkValidOfBlocksPositions()
         if (auto block = item.lock())
         {
             auto pos = block->getGridPosition();
-            if (pos.x < 0 || pos.x > 10)
+            if (pos.x < 0 || pos.x > gridSettings.xLines)
+                return false;
+            if (pos.y < 0 || pos.y > gridSettings.yLines)
                 return false;
         }
         else
@@ -140,7 +147,6 @@ bool Figure::checkValidOfBlocksPositions()
         }
     }
     return true;
-    // TODO добавить границы для блоков
 }
 
 void Figure::switchDrawRect() {

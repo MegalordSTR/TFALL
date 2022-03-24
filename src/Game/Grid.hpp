@@ -16,13 +16,13 @@ class Grid : public MW::SceneNode {
 public:
     struct GridSettings
     {
-        float xSize;
-        float ySize;
+        int xLines;
+        int yLines;
         float unitGridSize;
 
         GridSettings(const float xSize, const float ySize, const float unitGridSize = 10.f) :
-            xSize(xSize),
-            ySize(ySize),
+            xLines(static_cast<int>((xSize - unitGridSize) / unitGridSize)),
+            yLines(static_cast<int>((ySize - unitGridSize) / unitGridSize)),
             unitGridSize(unitGridSize)
         {}
     };
