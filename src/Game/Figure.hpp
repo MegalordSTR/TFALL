@@ -23,6 +23,7 @@ public:
 
     void attachBlock(const std::shared_ptr<Block>& ptr);
     std::shared_ptr<Block> detachBlock(const Block& node);
+    std::vector<std::weak_ptr<Block>> getAllBlocks();
 
     void rotateRight();
     void move(sf::Vector2i diff);
@@ -30,12 +31,16 @@ public:
 
     void switchDrawRect();
 
+    void switchStatic();
+
+    std::vector<sf::Vector2i> getBlocksGridPositions();
+
+    void moveDownLinesAbove(int lineNum);
+
 private:
     void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;
     void updateCurrent(sf::Time dt, MW::CommandQueue &commands) override;
 
-    std::vector<int> getFullLinesNums();
-    void moveDownLinesAbove(std::vector<int> lines);
     bool checkValidOfBlocksPositions();
 
     sf::IntRect calculateFigureRect();

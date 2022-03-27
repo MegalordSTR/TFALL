@@ -6,6 +6,8 @@
 #define TFALL_WORLD_HPP
 
 #include "Grid.hpp"
+#include "Block.hpp"
+#include "Figure.hpp"
 
 #include <MW/Command/CommandQueue.hpp>
 #include <MW/Node/SceneManager.hpp>
@@ -28,6 +30,15 @@ public:
     MW::CommandQueue& getCommandQueue();
 
 private:
+
+    bool isFigureLanded();
+    void transferNonStaticFigure();
+    void shrinkFullLines();
+    void spawnFigure(int blockColor);
+
+private:
+    MW::TextureHolder& textureHolder;
+
     MW::CommandQueue commandQueue;
     MW::SceneManager sceneManager;
 
@@ -40,6 +51,12 @@ private:
 
     std::weak_ptr<Grid> grid;
     float gridMargin;
+
+    std::weak_ptr<Figure> fallingFigure;
+    std::weak_ptr<Figure> staticFigure;
+
+    int nextFigureColorNum;
+    int figureColorsNum;
 };
 
 

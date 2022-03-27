@@ -35,13 +35,13 @@ void Figure::updateCurrent(sf::Time dt, MW::CommandQueue &commands) {
             if (auto block = item.lock())
             {
                 block->move(sf::Vector2i(0, 1));
-                if (block->getGridPosition().y > 10)
-                    move(sf::Vector2i(0, -10));
             }
         }
     }
 
     calculateFigureRect();
+
+
 }
 
 void Figure::attachBlock(const std::shared_ptr<Block>& ptr) {
@@ -70,11 +70,20 @@ std::shared_ptr<Block> Figure::detachBlock(const Block& node) {
     std::shared_ptr<Block> result = found->lock();
     blocks.erase(found);
 
+    detachChild(node);
     calculateFigureRect();
     return result;
 }
 
+std::vector<std::weak_ptr<Block>> Figure::getAllBlocks()
+{
+    return blocks;
+}
+
 void Figure::rotateRight() {
+    if (isStatic)
+        return;
+
     for (auto& item : blocks)
     {
         if (auto block = item.lock())
@@ -94,12 +103,20 @@ void Figure::rotateRight() {
     }
 }
 
-std::vector<int> Figure::getFullLinesNums() {
-    return std::vector<int>();
-}
+void Figure::moveDownLinesAbove(int lineNum) {
+    for (auto& item : blocks)
+    {
+        if (auto block = item.lock())
+        {
+            auto pos = block->getGridPosition();
 
-void Figure::moveDownLinesAbove(std::vector<int> lines) {
-
+            if (lineNum > pos.y)
+            {
+                block->move(sf::Vector2i(0, 1));
+            }
+        }
+    }
+    calculateFigureRect();
 }
 
 bool Figure::isPlayerMovable() const {
@@ -148,6 +165,7 @@ bool Figure::checkValidOfBlocksPositions()
     }
     return true;
 }
+#pragma clang diagnostic pop
 
 void Figure::switchDrawRect() {
     drawRect = !drawRect;
@@ -197,4 +215,21 @@ sf::IntRect Figure::calculateFigureRect() {
     return gridFigureRect;
 }
 
-#pragma clang diagnostic pop
+void Figure::switchStatic() {
+    isStatic = !isStatic;
+}
+
+std::vector<sf::Vector2i> Figure::getBlocksGridPositions() {
+    std::vector<sf::Vector2i> positions;
+    positions.reserve(blocks.size());
+
+    for (auto& item : blocks)
+    {
+        if (auto block = item.lock())
+        {
+            positions.push_back(block->getGridPosition());
+        }
+    }
+
+    return positions;
+}
