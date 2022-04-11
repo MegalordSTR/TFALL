@@ -16,6 +16,8 @@ namespace MW
         text.setFont(fonts.get(Resources::Font::Main));
     }
 
+    TextNode::~TextNode() = default;
+
     void TextNode::setText(const std::string& str)
     {
         text.setString(str);

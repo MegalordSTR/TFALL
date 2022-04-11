@@ -8,6 +8,7 @@
 #include "MW/Resources/ResourceHolder.hpp"
 #include "MW/Resources/ResourceIdentifiers.hpp"
 #include "MW/Resources/SoundPlayer.hpp"
+#include "MW/Input/InputManager.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -24,10 +25,14 @@ private:
     void update(sf::Time dt);
     void render();
 
+    void closeWindow(MW::EventDetails* details);
+
 private:
     float targetFPS;
     sf::Time timePerFrame;
     sf::RenderWindow window;
+
+    MW::InputManager inputManager;
 
     MW::FontHolder fontHolder;
     MW::TextureHolder textureHolder;

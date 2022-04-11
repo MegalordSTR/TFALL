@@ -7,8 +7,6 @@
 
 #include <Game/World.hpp>
 
-#include <Game/Player.hpp>
-
 #include "MW/State/State.hpp"
 
 class GameState : public MW::State {
@@ -28,7 +26,6 @@ private:
 
 private:
     World world;
-    Player player;
     sf::Time timeElapsed;
     sf::Time tickTime;
 };

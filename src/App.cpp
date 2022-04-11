@@ -5,18 +5,22 @@
 #include "App.hpp"
 #include "MW/State/StateIdentifiers.hpp"
 #include "States/GameState.hpp"
+#include <functional>
 
 App::App(int windowWidth, int windowHeight, float targetFPS) :
         window(sf::VideoMode(windowWidth, windowHeight), "App", sf::Style::Close),
         targetFPS(targetFPS),
         timePerFrame(sf::seconds(1 / targetFPS)),
+        inputManager(),
         fontHolder(),
         textureHolder(),
         soundPlayer(),
-        states(MW::State::Context(window, fontHolder, textureHolder, soundPlayer))
+        states(MW::State::Context(window, inputManager, fontHolder, textureHolder, soundPlayer))
 {
     window.setKeyRepeatEnabled(false);
     textureHolder.load(MW::Resources::Texture::Block, "blocks.png");
+
+    inputManager.AddCallback<App>("window_close", &App::closeWindow, this);
 
     states.registerState<GameState>(MW::States::ID::Game);
 
@@ -45,11 +49,10 @@ void App::handleInput() {
     sf::Event event{};
     while (window.pollEvent(event))
     {
-        if (event.type == sf::Event::KeyPressed && event.key.code == sf::Keyboard::Escape)
-            window.close();
-
-        states.handleEvent(event);
+        inputManager.HandleEvent(event);
     }
+
+    inputManager.Update();
 }
 
 void App::update(sf::Time dt) {
@@ -60,4 +63,8 @@ void App::render() {
     window.clear(sf::Color::White);
     states.draw();
     window.display();
+}
+
+void App::closeWindow(MW::EventDetails* details) {
+    window.close();
 }

@@ -15,9 +15,11 @@
 #include <memory>
 
 
+
 namespace MW
 {
     class StateStack;
+    class InputManager;
 
     class State
     {
@@ -28,13 +30,14 @@ namespace MW
         {
             Context(
                     sf::RenderWindow& window,
+                    InputManager& inputManager,
                     FontHolder& fonts,
                     TextureHolder& textures,
                     SoundPlayer& soundPlayer
             );
 
+            InputManager* inputManager;
             sf::RenderWindow* window;
-
             FontHolder* fonts;
             TextureHolder* textures;
             SoundPlayer* soundPlayer;

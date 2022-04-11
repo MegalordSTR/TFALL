@@ -20,6 +20,8 @@ namespace MW
     public:
         explicit TextNode(const FontHolder& fonts);
 
+        ~TextNode() override;
+
         void setText(const std::string& str);
     private:
         void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const override;

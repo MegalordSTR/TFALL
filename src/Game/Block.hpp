@@ -7,13 +7,13 @@
 
 #include <MW/Node/SceneNode.hpp>
 
-#include "Grid.hpp"
+#include "TetrisGridSettings.hpp"
 
 class Block : public MW::SceneNode {
 public:
-    Block(const Grid::GridSettings gridSettings, float margin, sf::Texture& texture, sf::IntRect textureRect);
+    Block(TetrisGridSettings& settings, float margin, sf::Texture& texture, sf::IntRect textureRect);
 
-    virtual ~Block();
+    ~Block() override;
 
     bool isMarkedForRemoval() const override;
 
@@ -28,8 +28,6 @@ private:
     void updateCurrent(sf::Time dt, MW::CommandQueue &commands) override;
 
 private:
-    Grid::GridSettings gridSettings;
-
     int posX;
     int posY;
 

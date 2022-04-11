@@ -5,9 +5,10 @@
 #ifndef TFALL_WORLD_HPP
 #define TFALL_WORLD_HPP
 
-#include "Grid.hpp"
+#include "GridSpriteNode.hpp"
 #include "Block.hpp"
 #include "Figure.hpp"
+#include "TetrisGrid.hpp"
 
 #include <MW/Command/CommandQueue.hpp>
 #include <MW/Node/SceneManager.hpp>
@@ -17,6 +18,7 @@
 #include <SFML/Graphics.hpp>
 
 #include <memory>
+#include <utility>
 
 class World {
 public:
@@ -41,15 +43,11 @@ private:
 
     MW::CommandQueue commandQueue;
     MW::SceneManager sceneManager;
-
-    sf::RectangleShape infoPanel;
-    sf::RectangleShape mapPanel;
     MW::SoundPlayer& soundPlayer;
 
     sf::RenderWindow& window;
     sf::View worldView;
 
-    std::weak_ptr<Grid> grid;
     float gridMargin;
 
     std::weak_ptr<Figure> fallingFigure;
@@ -57,6 +55,8 @@ private:
 
     int nextFigureColorNum;
     int figureColorsNum;
+
+    std::shared_ptr<TetrisGrid> tetrisGrid;
 };
 
 

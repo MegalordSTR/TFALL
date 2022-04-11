@@ -38,11 +38,13 @@ namespace MW
 
     State::Context::Context(
             sf::RenderWindow& window,
+            InputManager& inputManager,
             FontHolder& fonts,
             TextureHolder& textures,
             SoundPlayer& soundPlayer
     ) :
             window(&window),
+            inputManager(&inputManager),
             fonts(&fonts),
             textures(&textures),
             soundPlayer(&soundPlayer)

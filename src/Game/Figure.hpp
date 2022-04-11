@@ -8,7 +8,7 @@
 #include <MW/Node/SceneNode.hpp>
 
 #include "Block.hpp"
-#include "Grid.hpp"
+#include "TetrisGridSettings.hpp"
 
 #include <vector>
 #include <memory>
@@ -17,7 +17,7 @@
 
 class Figure : public MW::SceneNode {
 public:
-    Figure(const Grid::GridSettings& gridSettings, bool isStatic);
+    Figure(TetrisGridSettings& settings, bool isStatic);
 
     virtual ~Figure();
 
@@ -46,7 +46,7 @@ private:
     sf::IntRect calculateFigureRect();
 
 private:
-    Grid::GridSettings gridSettings;
+    TetrisGridSettings& settings;
 
     bool isStatic;
     std::vector<std::weak_ptr<Block>> blocks;

@@ -23,7 +23,7 @@ class SceneNode : public sf::Drawable, public sf::Transformable, private sf::Non
         void attachChild(std::shared_ptr<SceneNode> ptr);
         std::shared_ptr<SceneNode> detachChild(const SceneNode& node);
 
-        void update(sf::Time dt, CommandQueue& commands);
+        void update(sf::Time dt, CommandQueue &commands);
         void onCommand(const Command& command, sf::Time dt);
 
         virtual bool isMarkedForRemoval() const;
@@ -32,14 +32,14 @@ class SceneNode : public sf::Drawable, public sf::Transformable, private sf::Non
         void setNodeCategory(CategoryType type);
 
     protected:
-        void draw(sf::RenderTarget& target, sf::RenderStates states) const final;
+        void draw(sf::RenderTarget &target, sf::RenderStates states) const final;
 
     private:
-        virtual void drawCurrent(sf::RenderTarget& target, sf::RenderStates states) const; // To override
-        void drawChildren(sf::RenderTarget& target, sf::RenderStates states) const;
+        virtual void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const; // To override
+        void drawChildren(sf::RenderTarget &target, sf::RenderStates states) const;
 
-        virtual void updateCurrent(sf::Time dt, CommandQueue& commands); // To override
-        void updateChildren(sf::Time dt, CommandQueue& commands);
+        virtual void updateCurrent(sf::Time dt, CommandQueue &commands); // To override
+        void updateChildren(sf::Time dt, CommandQueue &commands);
 
     private:
         std::weak_ptr<SceneNode> parent;
