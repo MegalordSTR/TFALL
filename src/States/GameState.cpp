@@ -6,9 +6,9 @@
 
 GameState::GameState(MW::StateStack &stack, const MW::State::Context &ctx) :
     State(stack, ctx),
-    world(*ctx.window, *ctx.soundPlayer, *ctx.textures)
+    world(*ctx.window, *ctx.soundPlayer, *ctx.textures, *ctx.inputManager)
 {
-    tickTime = sf::seconds(0.5f);
+    tickTime = sf::seconds(0.25f);
 }
 
 GameState::~GameState() {

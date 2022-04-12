@@ -45,17 +45,17 @@ add_executable(TFALL
         src/Game/World.hpp
         src/Game/GridSpriteNode.cpp
         src/Game/GridSpriteNode.hpp
-        src/Game/Block.cpp
-        src/Game/Block.hpp
-        src/Game/Figure.cpp
-        src/Game/Figure.hpp
         Frameworks/MW/Input/InputManager.cpp
         Frameworks/MW/Input/InputManager.hpp
         src/Game/TetrisGrid.cpp
         src/Game/TetrisGrid.hpp
         Frameworks/MW/Core/Mwtype.hpp
         src/Game/TetrisGridSettings.hpp
-        Frameworks/MW/Node/RectangleShapeNode.cpp Frameworks/MW/Node/RectangleShapeNode.hpp Frameworks/MW/Node/SpriteNode.cpp Frameworks/MW/Node/SpriteNode.hpp)
+        Frameworks/MW/Node/RectangleShapeNode.cpp
+        Frameworks/MW/Node/RectangleShapeNode.hpp
+        Frameworks/MW/Node/SpriteNode.cpp
+        Frameworks/MW/Node/SpriteNode.hpp
+        )
 
 # SFML
 target_link_libraries(TFALL sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

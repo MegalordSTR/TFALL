@@ -18,12 +18,13 @@
 
 const sf::Vector2f mapSize(400, 560);
 
-World::World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::TextureHolder& textureHolder) :
+World::World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::TextureHolder &textureHolder, MW::InputManager &inputManager) :
+        window(window),
+        soundPlayer(soundPlayer),
         textureHolder(textureHolder),
+        inputManager(inputManager),
         commandQueue(),
         sceneManager(),
-        soundPlayer(soundPlayer),
-        window(window),
         worldView(window.getDefaultView()),
         nextFigureColorNum(0),
         figureColorsNum(5),
@@ -63,6 +64,9 @@ World::World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::Texture
     tetrisGrid = std::make_shared<TetrisGrid>(tgs, textureHolder.get(MW::Resources::Texture::Block));
     frontLayer.attachChild(tetrisGrid);
     tetrisGrid->setPosition(mapPanel->getPosition());
+
+    inputManager.AddCallback<World>("move_left", &World::moveFigureLeft, this);
+    inputManager.AddCallback<World>("move_right", &World::moveFigureRight, this);
 
     // Музыка
     // soundPlayer.play(MW::Resources::TypeSoundEffect::Background); // TODO включить музыку и вынести в отд контейнер
@@ -112,5 +116,17 @@ void World::draw() {
 
 MW::CommandQueue& World::getCommandQueue() {
     return commandQueue;
+}
+
+void World::moveFigureLeft(MW::EventDetails* details) {
+    tetrisGrid->MovePlayerFigure(-1);
+}
+
+void World::moveFigureRight(MW::EventDetails* details) {
+    tetrisGrid->MovePlayerFigure(1);
+}
+
+void World::rotateFigure(MW::EventDetails* details) {
+    tetrisGrid->RotatePlayerFigure();
 }
 

@@ -28,43 +28,41 @@ public:
         PlayerFalling = Falling | Player
     };
 
-    typedef vector<BlockType> BlockRow;
-    typedef vector<BlockRow> BlockGrid;
-
     struct Block {
         int x;
         int y;
+
         BlockType type;
+        std::weak_ptr<MW::SpriteNode> blockSprite;
 
-        std::shared_ptr<MW::SpriteNode> blockSprite;
+        MW::Vec2i derivedMove;
 
-        Block(std::shared_ptr<MW::SpriteNode> &blockSprite, BlockType type, int x, int y) :
-            x(x), y(y), type(type), blockSprite(blockSprite) {}
+        Block(std::shared_ptr<MW::SpriteNode> blockSprite, BlockType type, int x, int y) :
+            x(x), y(y), type(type), blockSprite(blockSprite), derivedMove(-1, -1) {}
 
-        void MoveTo(BlockGrid &grid, int newX, int newY)
-        {
-            grid[y][x] = BlockType::None;
-
-            x = newX;
-            y = newY;
-            grid[y][x] = type;
-        }
-
-        void ChangeType(BlockGrid &grid, BlockType newType)
-        {
-            type = newType;
-            grid[y][x] = type;
-        }
-
-        bool IsPlayer()
+        bool IsPlayer() const
         {
             return static_cast<uint32_t>(type) & static_cast<uint32_t>(BlockType::Player);
         }
+
+        bool NeedMove() const
+        {
+            return derivedMove.x != -1;
+        }
+
+        void ResetMove()
+        {
+            derivedMove.x = -1;
+            derivedMove.y = -1;
+        }
     };
 
-
+    typedef vector<Block> BlockGrid;
     TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture);
     ~TetrisGrid() override = default;
+
+    void MovePlayerFigure(int x);
+    void RotatePlayerFigure();
 
 private:
     void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const override;
@@ -72,17 +70,20 @@ private:
     void updateCurrent(sf::Time dt, MW::CommandQueue &commands) override;
 
     BlockGrid makeGrid() const;
-    void spawnBlock(int x, int y, TetrisGrid::BlockType type = BlockType::Falling);
+    void spawnBlock(int x, int y, TetrisGrid::BlockType type = BlockType::Falling, int texNum = 0);
+    void spawnFigure(int x, TetrisGrid::BlockType type);
+
+    Block &getBlock(int x, int y);
+    Block &getBlock(const MW::Vec2i coord);
+    void clearBlock(Block &block);
+    void ExecuteDerivedMoveBlock(Block &block);
 
     void shrinkLine(int y);
-
-    void movePlayerFigure(int x);
-
+    bool updatePlayerFigure();
+    bool hasToBeStatic(const Block &block);
 private:
     TetrisGridSettings settings;
-
     BlockGrid blockGrid;
-    vector<std::shared_ptr<Block>> blocks;
 
     sf::Texture& blockTexture;
 };

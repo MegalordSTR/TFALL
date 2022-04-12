@@ -6,13 +6,12 @@
 #define TFALL_WORLD_HPP
 
 #include "GridSpriteNode.hpp"
-#include "Block.hpp"
-#include "Figure.hpp"
 #include "TetrisGrid.hpp"
 
 #include <MW/Command/CommandQueue.hpp>
 #include <MW/Node/SceneManager.hpp>
 #include <MW/Node/SoundNode.hpp>
+#include <MW/Input/InputManager.hpp>
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -22,7 +21,7 @@
 
 class World {
 public:
-    World(sf::RenderWindow& window, MW::SoundPlayer& soundPlayer, MW::TextureHolder& textureHolder);
+    World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::TextureHolder &textureHolder, MW::InputManager &inputManager);
 
     ~World();
 
@@ -38,20 +37,21 @@ private:
     void shrinkFullLines();
     void spawnFigure(int blockColor);
 
+    void moveFigureLeft(MW::EventDetails* details);
+    void moveFigureRight(MW::EventDetails* details);
+    void rotateFigure(MW::EventDetails* details);
+
 private:
+    sf::RenderWindow& window;
+    MW::SoundPlayer& soundPlayer;
     MW::TextureHolder& textureHolder;
+    MW::InputManager& inputManager;
 
     MW::CommandQueue commandQueue;
     MW::SceneManager sceneManager;
-    MW::SoundPlayer& soundPlayer;
 
-    sf::RenderWindow& window;
     sf::View worldView;
-
     float gridMargin;
-
-    std::weak_ptr<Figure> fallingFigure;
-    std::weak_ptr<Figure> staticFigure;
 
     int nextFigureColorNum;
     int figureColorsNum;
