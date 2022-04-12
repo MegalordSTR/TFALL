@@ -15,7 +15,9 @@ namespace MW {
 
         inline Vec2(T X, T Y): x(X), y(Y) {};
 
-
+        inline bool operator==(const Vec2<T>& vectorR) const {
+            return x == vectorR.x && y == vectorR.y;
+        }
     };
 
     typedef Vec2<int32_t> Vec2i;

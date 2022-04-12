@@ -47,7 +47,17 @@ public:
 
         bool NeedMove() const
         {
-            return derivedMove.x != -1;
+            return derivedMove.x != -1 && !(derivedMove.x == x && derivedMove.y == y);
+        }
+
+        bool operator==(const Block &r) const
+        {
+            return x == r.x && y == r.y;
+        }
+
+        bool operator!=(const Block &r) const
+        {
+            return x != r.x || y != r.y;
         }
 
         void ResetMove()
@@ -81,6 +91,7 @@ private:
     void shrinkLine(int y);
     bool updatePlayerFigure();
     bool hasToBeStatic(const Block &block);
+    bool isValidPlayerPosition(int x, int y);
 private:
     TetrisGridSettings settings;
     BlockGrid blockGrid;

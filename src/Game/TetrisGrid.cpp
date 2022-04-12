@@ -7,6 +7,7 @@
 
 #include <stdexcept>
 #include <cassert>
+#include <stack>
 
 TetrisGrid::TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture) :
         settings(settings),
@@ -26,7 +27,7 @@ void TetrisGrid::spawnBlock(int x, int y, TetrisGrid::BlockType type, int texNum
     auto &block = getBlock(x, y);
     if (block.type != TetrisGrid::BlockType::None)
     {
-        throw std::logic_error("can not spawn sprite on existing sprite");
+        throw std::logic_error("can not spawn block on existing block");
     }
 
     auto sprite = std::make_shared<MW::SpriteNode>(
@@ -44,10 +45,40 @@ void TetrisGrid::spawnBlock(int x, int y, TetrisGrid::BlockType type, int texNum
 void TetrisGrid::spawnFigure(int x, TetrisGrid::BlockType type) {
     int texNum = rand() % 5;
 
-    spawnBlock(x + 0, 0, type, texNum);
-    spawnBlock(x + 0, 1, type, texNum);
-    spawnBlock(x + 0, 2, type, texNum);
-    spawnBlock(x + 1, 2, type, texNum);
+    switch (rand() % 5) {
+        case 0: // квадрат
+            spawnBlock(x + 0, 0, type, texNum);
+            spawnBlock(x + 1, 0, type, texNum);
+            spawnBlock(x + 0, 1, type, texNum);
+            spawnBlock(x + 1, 1, type, texNum);
+            break;
+        case 1: // Z
+            spawnBlock(x + -1, 0, type, texNum);
+            spawnBlock(x + 0, 0, type, texNum);
+            spawnBlock(x + 0, 1, type, texNum);
+            spawnBlock(x + 1, 1, type, texNum);
+            break;
+        case 2: // L
+            spawnBlock(x + 0, 0, type, texNum);
+            spawnBlock(x + 0, 1, type, texNum);
+            spawnBlock(x + 0, 2, type, texNum);
+            spawnBlock(x + 1, 2, type, texNum);
+            break;
+        case 3: // T
+            spawnBlock(x + -1, 0, type, texNum);
+            spawnBlock(x + 0, 0, type, texNum);
+            spawnBlock(x + 1, 0, type, texNum);
+            spawnBlock(x + 0, 1, type, texNum);
+            break;
+        case 4: // I
+            spawnBlock(x + 0, 0, type, texNum);
+            spawnBlock(x + 0, 1, type, texNum);
+            spawnBlock(x + 0, 2, type, texNum);
+            spawnBlock(x + 0, 3, type, texNum);
+            break;
+    }
+
+
 }
 
 void TetrisGrid::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -164,7 +195,7 @@ void TetrisGrid::shrinkLine(int y) {
         }
         else if (tgBlock.y < y)
         {
-            tgBlock.type = tgBlock.type != BlockType::None ? BlockType::Falling : tgBlock.type;
+            tgBlock.type = tgBlock.type != BlockType::None && !tgBlock.IsPlayer() ? BlockType::Falling : tgBlock.type;
         }
     }
 }
@@ -177,6 +208,10 @@ void TetrisGrid::MovePlayerFigure(int x) {
         {
             playerBlocks.push_back(&block);
         }
+    }
+    if (playerBlocks.empty())
+    {
+        return;
     }
 
     for (auto blockP : playerBlocks)
@@ -213,60 +248,108 @@ void TetrisGrid::MovePlayerFigure(int x) {
     }
 }
 
-void TetrisGrid::RotatePlayerFigure() {
-//    auto playerBlocks = std::find_if(blocks.begin(), blocks.end(), [&](const auto& item){
-//        return item->IsPlayer();
-//    });
-//
-//    int figureLeft = (**playerBlocks).x;
-//    int figureTop = (**playerBlocks).y;
-//    // Расчет фигуры
-//    for (auto it = playerBlocks; it != blocks.end(); it++)
-//    {
-//        Block& block = **it;
-//        figureLeft = block.x < figureLeft ? block.x : figureLeft;
-//        figureTop = block.y < figureTop ? block.y : figureTop;
-//    }
-//
-//    // Проверка новых координат
-//    for (auto it = playerBlocks; it != blocks.end(); it++)
-//    {
-//        Block& block = **it;
-//        int newX = figureLeft + figureTop - block.y;
-//        int newY = block.y + figureTop - figureLeft;
-//
-//        // Выезд за сетку
-//        if (newX < 0 || newX >= settings.size.x)
-//        {
-//            return;
-//        }
-//
-//        if (newY < 0 || newY >= settings.size.y)
-//        {
-//            return;
-//        }
-//
-//        // Попадание в другую фигуру
-//        TetrisGrid::BlockType newXCellType = blockGrid[newY][newX];
-//        if (newXCellType != BlockType::None && !(static_cast<uint32_t>(newXCellType) & static_cast<uint32_t>(BlockType::Player)))
-//        {
-//            return;
-//        }
-//    }
-//
-//    // Перемещение по новым координатам
-//    for (auto it = playerBlocks; it != blocks.end(); it++)
-//    {
-//        Block& block = **it;
-//
-//        int newX = figureLeft + figureTop - block.y;
-//        int newY = block.y + figureTop - figureLeft;
-//
-//        block.MoveTo(blockGrid, newX, newY);
-//        block.blockSprite->setPosition(block.x * settings.unitGridSize, block.y * settings.unitGridSize);
-//    }
+bool TetrisGrid::isValidPlayerPosition(int x, int y)
+{
+    // Выезд за сетку
+    if (x < 0 || x >= settings.size.x)
+    {
+        return false;
+    }
 
-//    remakeBlockGrid();
+    if (y < 0 || y >= settings.size.y)
+    {
+        return false;
+    }
+
+    // Попадание в другую фигуру
+    TetrisGrid::Block newCell = getBlock(x, y);
+    if (newCell.type != BlockType::None && !newCell.IsPlayer())
+    {
+        return false;
+    }
+
+    return true;
+}
+
+void TetrisGrid::RotatePlayerFigure() {
+    vector<Block*> playerBlocks;
+    for (auto &block : blockGrid)
+    {
+        if (block.IsPlayer())
+        {
+            playerBlocks.push_back(&block);
+        }
+    }
+    if (playerBlocks.empty())
+        return;
+
+    // Расчет фигуры
+    int figureLeft = (*playerBlocks[0]).x;
+    int figureTop = (*playerBlocks[0]).y;
+    for (auto blockP : playerBlocks)
+    {
+        Block &block = *blockP;
+
+        figureLeft = block.x < figureLeft ? block.x : figureLeft;
+        figureTop = block.y < figureTop ? block.y : figureTop;
+    }
+
+    int newFigureLeft = settings.size.x;
+    int newFigureTop = settings.size.y;
+    // Проверка новых координат
+    for (auto blockP : playerBlocks)
+    {
+        Block &block = *blockP;
+
+        int newX = figureLeft + figureTop - block.y;
+        int newY = block.x + figureTop - figureLeft;
+
+        if (!isValidPlayerPosition(newX, newY))
+            return;
+
+        newFigureLeft = newX < newFigureLeft ? newX : newFigureLeft;
+        newFigureTop = newY < newFigureTop ? newY : newFigureTop;
+    }
+
+    int shiftX = figureLeft - newFigureLeft;
+    int shiftY = figureTop - newFigureTop;
+    // Проверка новых координат (со сдвигом)
+    for (auto blockP : playerBlocks)
+    {
+        Block &block = *blockP;
+
+        int newX = figureLeft + figureTop - block.y;
+        int newY = block.x + figureTop - figureLeft;
+
+        int newShiftedX = shiftX + newX;
+        int newShiftedY = shiftY + newY;
+
+        if (!isValidPlayerPosition(newShiftedX, newShiftedY))
+            return;
+    }
+
+
+    // Перемещение по новым координатам
+    for (auto blockP : playerBlocks)
+    {
+        Block &block = *blockP;
+
+        int newX = figureLeft + figureTop - block.y;
+        int newY = block.x + figureTop - figureLeft;
+
+        int newShiftedX = shiftX + newX;
+        int newShiftedY = shiftY + newY;
+
+        block.derivedMove.x = newShiftedX;
+        block.derivedMove.y = newShiftedY;
+    }
+
+    for (auto blockP : playerBlocks)
+    {
+        Block &block = *blockP;
+
+        ExecuteDerivedMoveBlock(block);
+    }
 }
 
 bool TetrisGrid::updatePlayerFigure() {
@@ -312,18 +395,33 @@ void TetrisGrid::ExecuteDerivedMoveBlock(TetrisGrid::Block &block) {
     if (!block.NeedMove())
         return;
 
-    auto &newBlock = getBlock(block.derivedMove);
-    ExecuteDerivedMoveBlock(newBlock);
-    if (newBlock.type == BlockType::None)
-    {
-        newBlock.blockSprite = block.blockSprite;
-        newBlock.blockSprite.lock()->setPosition(newBlock.x * settings.unitGridSize, newBlock.y * settings.unitGridSize);
-        newBlock.type = block.type;
+    std::stack<Block*> blocks;
+    blocks.push(&block);
 
-        block.blockSprite.reset();
-        block.type = BlockType::None;
+    auto nextBlock = &getBlock(block.derivedMove);
+    while (nextBlock->NeedMove() && *nextBlock != block)
+    {
+        blocks.push(nextBlock);
+        nextBlock = &getBlock(nextBlock->derivedMove);
     }
 
-    block.ResetMove();
+    while (!blocks.empty())
+    {
+        auto &currentBlock = *blocks.top();
+        blocks.pop();
+
+        auto& newBlock = getBlock(currentBlock.derivedMove);
+        if (newBlock.type == BlockType::None)
+        {
+            newBlock.blockSprite = currentBlock.blockSprite;
+            newBlock.blockSprite.lock()->setPosition(newBlock.x * settings.unitGridSize, newBlock.y * settings.unitGridSize);
+            newBlock.type = currentBlock.type;
+
+            currentBlock.blockSprite.reset();
+            currentBlock.type = BlockType::None;
+        }
+
+        currentBlock.ResetMove();
+    }
 }
 

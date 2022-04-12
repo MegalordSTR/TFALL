@@ -67,6 +67,7 @@ World::World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::Texture
 
     inputManager.AddCallback<World>("move_left", &World::moveFigureLeft, this);
     inputManager.AddCallback<World>("move_right", &World::moveFigureRight, this);
+    inputManager.AddCallback<World>("rotate", &World::rotateFigure, this);
 
     // Музыка
     // soundPlayer.play(MW::Resources::TypeSoundEffect::Background); // TODO включить музыку и вынести в отд контейнер
