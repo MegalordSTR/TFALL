@@ -5,16 +5,11 @@
 #include "World.hpp"
 #include "TetrisGridSettings.hpp"
 
-
-
 #include <MW/Node/RectangleShapeNode.hpp>
 #include <MW/Node/SpriteNode.hpp>
 #include <MW/Utility/Utility.h>
 
 #include <memory>
-#include <unordered_map>
-#include <unordered_set>
-#include <functional>
 
 const sf::Vector2f mapSize(400, 560);
 
@@ -70,7 +65,7 @@ World::World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::Texture
     inputManager.AddCallback<World>("rotate", &World::rotateFigure, this);
 
     // Музыка
-    // soundPlayer.play(MW::Resources::TypeSoundEffect::Background); // TODO включить музыку и вынести в отд контейнер
+    soundPlayer.play(MW::Resources::SoundEffect::Background); // TODO включить музыку и вынести в отд контейнер
 }
 
 
@@ -82,28 +77,6 @@ World::~World() {
 void World::update(sf::Time dt) {
     auto& frontLayer = sceneManager.getLayer(MW::Layer::Front);
     frontLayer.update(dt, commandQueue);
-//    auto fallingFigureLock = fallingFigure.lock();
-//    if (fallingFigureLock->getAllBlocks().empty())
-//    {
-//
-//        spawnFigure(nextFigureColorNum);
-//        nextFigureColorNum = (nextFigureColorNum + 1) % figureColorsNum;
-//    }
-//
-//    if (isFigureLanded())
-//    {
-//        transferNonStaticFigure();
-//        shrinkFullLines();
-//    }
-//
-//    auto& frontLayer = sceneManager.getLayer(MW::Layer::Front);
-//
-//    while (!commandQueue.isEmpty())
-//    {
-//        frontLayer.onCommand(commandQueue.pop(), dt);
-//    }
-//
-//    frontLayer.update(dt, commandQueue);
 }
 
 /// Отрисовывает все объекты в мире игры
@@ -129,5 +102,9 @@ void World::moveFigureRight(MW::EventDetails* details) {
 
 void World::rotateFigure(MW::EventDetails* details) {
     tetrisGrid->RotatePlayerFigure();
+}
+
+bool World::CheckSpace() {
+    return tetrisGrid->HasPlayerSpace;
 }
 

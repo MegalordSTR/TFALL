@@ -12,7 +12,7 @@ GameState::GameState(MW::StateStack &stack, const MW::State::Context &ctx) :
 }
 
 GameState::~GameState() {
-
+    getContext().soundPlayer->stopAndRemoveAll();
 }
 
 void GameState::draw() {
@@ -25,6 +25,12 @@ bool GameState::update(sf::Time dt) {
     {
         timeElapsed -= tickTime;
         world.update(tickTime);
+    }
+
+    if (!world.CheckSpace())
+    {
+        requestStateClear();
+        requestStackPush(MW::States::ID::Game);
     }
 
     return true;

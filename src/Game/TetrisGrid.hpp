@@ -14,6 +14,7 @@
 
 #include <memory>
 #include <vector>
+#include <stdexcept>
 
 using std::vector;
 
@@ -74,6 +75,9 @@ public:
     void MovePlayerFigure(int x);
     void RotatePlayerFigure();
 
+public:
+    bool HasPlayerSpace;
+
 private:
     void drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const override;
 
@@ -81,7 +85,7 @@ private:
 
     BlockGrid makeGrid() const;
     void spawnBlock(int x, int y, TetrisGrid::BlockType type = BlockType::Falling, int texNum = 0);
-    void spawnFigure(int x, TetrisGrid::BlockType type);
+    bool spawnFigure(int x, TetrisGrid::BlockType type);
 
     Block &getBlock(int x, int y);
     Block &getBlock(const MW::Vec2i coord);
@@ -92,11 +96,15 @@ private:
     bool updatePlayerFigure();
     bool hasToBeStatic(const Block &block);
     bool isValidPlayerPosition(int x, int y);
+
+    vector<Block*> getBlocksOfType(BlockType type);
 private:
     TetrisGridSettings settings;
     BlockGrid blockGrid;
 
     sf::Texture& blockTexture;
+
+
 };
 
 

@@ -22,6 +22,8 @@ namespace MW {
 
         void removeStoppedSounds();
 
+        void stopAndRemoveAll();
+
     private:
         SoundBufferHolder soundBuffers;
 

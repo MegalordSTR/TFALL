@@ -28,15 +28,11 @@ public:
     void update(sf::Time dt);
     void draw();
 
+    bool CheckSpace();
+
     MW::CommandQueue& getCommandQueue();
 
 private:
-
-    bool isFigureLanded();
-    void transferNonStaticFigure();
-    void shrinkFullLines();
-    void spawnFigure(int blockColor);
-
     void moveFigureLeft(MW::EventDetails* details);
     void moveFigureRight(MW::EventDetails* details);
     void rotateFigure(MW::EventDetails* details);

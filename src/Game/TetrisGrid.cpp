@@ -5,9 +5,11 @@
 #include "TetrisGrid.hpp"
 #include "GridSpriteNode.hpp"
 
-#include <stdexcept>
+#include <MW/Utility/Utility.h>
+
 #include <cassert>
 #include <stack>
+
 
 TetrisGrid::TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture) :
         settings(settings),
@@ -20,7 +22,7 @@ TetrisGrid::TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture) 
             blockGrid.emplace_back(std::shared_ptr<MW::SpriteNode>(nullptr), BlockType::None, j, i);
         }
     }
-    spawnFigure(settings.size.x / 2, TetrisGrid::BlockType::PlayerFalling);
+    HasPlayerSpace = spawnFigure(settings.size.x / 2, TetrisGrid::BlockType::PlayerFalling);
 }
 
 void TetrisGrid::spawnBlock(int x, int y, TetrisGrid::BlockType type, int texNum) {
@@ -31,7 +33,7 @@ void TetrisGrid::spawnBlock(int x, int y, TetrisGrid::BlockType type, int texNum
     }
 
     auto sprite = std::make_shared<MW::SpriteNode>(
-            MW::Vec2f(settings.unitGridSize, settings.unitGridSize),
+            MW::Vec2f(static_cast<float>(settings.unitGridSize), static_cast<float>(settings.unitGridSize)),
             blockTexture,
             MW::RectI(30,30,30 * texNum,0)
     );
@@ -39,46 +41,62 @@ void TetrisGrid::spawnBlock(int x, int y, TetrisGrid::BlockType type, int texNum
 
     block.type = type;
     block.blockSprite = sprite;
-    sprite->setPosition(block.x * settings.unitGridSize, block.y * settings.unitGridSize);
+    sprite->setPosition(static_cast<float>(block.x * settings.unitGridSize), static_cast<float>(block.y * settings.unitGridSize));
 }
 
-void TetrisGrid::spawnFigure(int x, TetrisGrid::BlockType type) {
-    int texNum = rand() % 5;
+bool TetrisGrid::spawnFigure(int x, TetrisGrid::BlockType type) {
+    vector<MW::Vec2i> coords;
 
-    switch (rand() % 5) {
+    switch (randIntN(5)) {
         case 0: // квадрат
-            spawnBlock(x + 0, 0, type, texNum);
-            spawnBlock(x + 1, 0, type, texNum);
-            spawnBlock(x + 0, 1, type, texNum);
-            spawnBlock(x + 1, 1, type, texNum);
+            coords.emplace_back(MW::Vec2i(x + 0, 0));
+            coords.emplace_back(MW::Vec2i(x + 1, 0));
+            coords.emplace_back(MW::Vec2i(x + 0, 1));
+            coords.emplace_back(MW::Vec2i(x + 1, 1));
             break;
         case 1: // Z
-            spawnBlock(x + -1, 0, type, texNum);
-            spawnBlock(x + 0, 0, type, texNum);
-            spawnBlock(x + 0, 1, type, texNum);
-            spawnBlock(x + 1, 1, type, texNum);
+            coords.emplace_back(MW::Vec2i(x + -1, 0));
+            coords.emplace_back(MW::Vec2i(x + 0, 0));
+            coords.emplace_back(MW::Vec2i(x + 0, 1));
+            coords.emplace_back(MW::Vec2i(x + 1, 1));
             break;
         case 2: // L
-            spawnBlock(x + 0, 0, type, texNum);
-            spawnBlock(x + 0, 1, type, texNum);
-            spawnBlock(x + 0, 2, type, texNum);
-            spawnBlock(x + 1, 2, type, texNum);
+            coords.emplace_back(MW::Vec2i(x + 0, 0));
+            coords.emplace_back(MW::Vec2i(x + 0, 1));
+            coords.emplace_back(MW::Vec2i(x + 0, 2));
+            coords.emplace_back(MW::Vec2i(x + 1, 2));
             break;
         case 3: // T
-            spawnBlock(x + -1, 0, type, texNum);
-            spawnBlock(x + 0, 0, type, texNum);
-            spawnBlock(x + 1, 0, type, texNum);
-            spawnBlock(x + 0, 1, type, texNum);
+            coords.emplace_back(MW::Vec2i(x + -1, 0));
+            coords.emplace_back(MW::Vec2i(x + 0, 0));
+            coords.emplace_back(MW::Vec2i(x + 1, 0));
+            coords.emplace_back(MW::Vec2i(x + 0, 1));
             break;
         case 4: // I
-            spawnBlock(x + 0, 0, type, texNum);
-            spawnBlock(x + 0, 1, type, texNum);
-            spawnBlock(x + 0, 2, type, texNum);
-            spawnBlock(x + 0, 3, type, texNum);
+            coords.emplace_back(MW::Vec2i(x + 0, 0));
+            coords.emplace_back(MW::Vec2i(x + 0, 1));
+            coords.emplace_back(MW::Vec2i(x + 0, 2));
+            coords.emplace_back(MW::Vec2i(x + 0, 3));
             break;
     }
 
 
+    for (auto& coord : coords)
+    {
+        auto &block = getBlock(coord.x, coord.y);
+        if (block.type != TetrisGrid::BlockType::None)
+        {
+            return false;
+        }
+    }
+
+    int texNum = randIntN(5);
+    for (auto& coord : coords)
+    {
+        spawnBlock(coord.x, coord.y, BlockType::PlayerFalling, texNum);
+    }
+
+    return true;
 }
 
 void TetrisGrid::drawCurrent(sf::RenderTarget &target, sf::RenderStates states) const {
@@ -111,6 +129,15 @@ bool TetrisGrid::hasToBeStatic(const Block &block)
 }
 
 void TetrisGrid::updateCurrent(sf::Time dt, MW::CommandQueue& commands) {
+    if (!HasPlayerSpace)
+        return;
+
+    // Сдвиг блоков на убранные линии
+    for (auto &tgBlock : blockGrid)
+    {
+        ExecuteDerivedMoveBlock(tgBlock);
+    }
+
     bool playerBlockChangedType = updatePlayerFigure();
 
     for (auto &tgBlock : blockGrid)
@@ -170,7 +197,7 @@ void TetrisGrid::updateCurrent(sf::Time dt, MW::CommandQueue& commands) {
 //        {
 //            spawnBlock(randX, 0, TetrisGrid::BlockType::PlayerFalling);
 //        }
-        spawnFigure(settings.size.x / 2, TetrisGrid::BlockType::PlayerFalling);
+        HasPlayerSpace = spawnFigure(settings.size.x / 2, TetrisGrid::BlockType::PlayerFalling);
     }
 }
 
@@ -186,6 +213,7 @@ TetrisGrid::BlockGrid TetrisGrid::makeGrid() const {
     return grid;
 }
 
+
 void TetrisGrid::shrinkLine(int y) {
     for (auto &tgBlock : blockGrid)
     {
@@ -193,9 +221,10 @@ void TetrisGrid::shrinkLine(int y) {
         {
             clearBlock(tgBlock);
         }
-        else if (tgBlock.y < y)
+        else if (tgBlock.y < y && tgBlock.type != BlockType::None && !tgBlock.IsPlayer())
         {
-            tgBlock.type = tgBlock.type != BlockType::None && !tgBlock.IsPlayer() ? BlockType::Falling : tgBlock.type;
+            tgBlock.derivedMove.x = tgBlock.x;
+            tgBlock.derivedMove.y = tgBlock.derivedMove.y == -1 ? tgBlock.y + 1 : tgBlock.derivedMove.y + 1;
         }
     }
 }
@@ -414,7 +443,7 @@ void TetrisGrid::ExecuteDerivedMoveBlock(TetrisGrid::Block &block) {
         if (newBlock.type == BlockType::None)
         {
             newBlock.blockSprite = currentBlock.blockSprite;
-            newBlock.blockSprite.lock()->setPosition(newBlock.x * settings.unitGridSize, newBlock.y * settings.unitGridSize);
+            newBlock.blockSprite.lock()->setPosition(static_cast<float>(newBlock.x * settings.unitGridSize), static_cast<float>(newBlock.y * settings.unitGridSize));
             newBlock.type = currentBlock.type;
 
             currentBlock.blockSprite.reset();
@@ -423,5 +452,18 @@ void TetrisGrid::ExecuteDerivedMoveBlock(TetrisGrid::Block &block) {
 
         currentBlock.ResetMove();
     }
+}
+
+vector<TetrisGrid::Block*> TetrisGrid::getBlocksOfType(TetrisGrid::BlockType type) {
+    vector<Block*> blocks;
+    for (auto &block : blockGrid)
+    {
+        if (block.type == type)
+        {
+            blocks.push_back(&block);
+        }
+    }
+
+    return blocks;
 }
 
