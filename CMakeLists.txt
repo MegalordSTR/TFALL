@@ -55,7 +55,7 @@ add_executable(TFALL
         Frameworks/MW/Node/RectangleShapeNode.hpp
         Frameworks/MW/Node/SpriteNode.cpp
         Frameworks/MW/Node/SpriteNode.hpp
-        )
+        Frameworks/MW/Node/Label.cpp Frameworks/MW/Node/Label.hpp)
 
 # SFML
 target_link_libraries(TFALL sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

@@ -6,9 +6,9 @@
 
 GameState::GameState(MW::StateStack &stack, const MW::State::Context &ctx) :
     State(stack, ctx),
-    world(*ctx.window, *ctx.soundPlayer, *ctx.textures, *ctx.inputManager)
+    world(*ctx.window, *ctx.soundPlayer, *ctx.textures, *ctx.fonts, *ctx.inputManager)
 {
-    tickTime = sf::seconds(0.35f);
+    tickTime = 0.35f;
 }
 
 GameState::~GameState() {
@@ -21,10 +21,12 @@ void GameState::draw() {
 
 bool GameState::update(sf::Time dt) {
     timeElapsed += dt;
-    if (timeElapsed > tickTime)
+
+    auto moddedTickTime = sf::seconds(tickTime * static_cast<float>((1 - static_cast<float>(world.GetScore()) / 100)));
+    if (timeElapsed > moddedTickTime)
     {
-        timeElapsed -= tickTime;
-        world.update(tickTime);
+        timeElapsed -= moddedTickTime;
+        world.update(moddedTickTime);
     }
 
     if (!world.CheckSpace())
@@ -32,6 +34,8 @@ bool GameState::update(sf::Time dt) {
         requestStateClear();
         requestStackPush(MW::States::ID::Game);
     }
+
+
 
     return true;
 }

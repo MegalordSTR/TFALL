@@ -8,8 +8,10 @@
 #include "TetrisGridSettings.hpp"
 #include "GridSpriteNode.hpp"
 
+
 #include <MW/Node/SceneNode.hpp>
 #include <MW/Node/SpriteNode.hpp>
+#include "MW/Node/Label.hpp"
 #include <MW/Core/Mwtype.hpp>
 
 #include <memory>
@@ -69,11 +71,13 @@ public:
     };
 
     typedef vector<Block> BlockGrid;
-    TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture);
+    TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture, std::shared_ptr<MW::Label> label);
     ~TetrisGrid() override = default;
 
     void MovePlayerFigure(int x);
     void RotatePlayerFigure();
+
+    int32_t GetShrinkedLinesCount();
 
 public:
     bool HasPlayerSpace;
@@ -103,8 +107,8 @@ private:
     BlockGrid blockGrid;
 
     sf::Texture& blockTexture;
-
-
+    int32_t linesShrinked;
+    std::weak_ptr<MW::Label> scoreLabel;
 };
 
 

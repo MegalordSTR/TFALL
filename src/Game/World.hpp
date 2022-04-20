@@ -11,6 +11,7 @@
 #include <MW/Command/CommandQueue.hpp>
 #include <MW/Node/SceneManager.hpp>
 #include <MW/Node/SoundNode.hpp>
+#include <MW/Node/Label.hpp>
 #include <MW/Input/InputManager.hpp>
 
 #include <SFML/System.hpp>
@@ -21,7 +22,7 @@
 
 class World {
 public:
-    World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::TextureHolder &textureHolder, MW::InputManager &inputManager);
+    World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::TextureHolder &textureHolder, MW::FontHolder &fontsHolder, MW::InputManager &inputManager);
 
     ~World();
 
@@ -29,6 +30,7 @@ public:
     void draw();
 
     bool CheckSpace();
+    int32_t GetScore();
 
     MW::CommandQueue& getCommandQueue();
 

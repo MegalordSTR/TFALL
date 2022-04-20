@@ -9,11 +9,14 @@
 
 #include <cassert>
 #include <stack>
+#include <sstream>
 
 
-TetrisGrid::TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture) :
+TetrisGrid::TetrisGrid(TetrisGridSettings &settings, sf::Texture &blockTexture, std::shared_ptr<MW::Label> label) :
         settings(settings),
-        blockTexture(blockTexture)
+        blockTexture(blockTexture),
+        scoreLabel(label),
+        linesShrinked(0)
 {
     int size = settings.size.x * settings.size.y;
     blockGrid.reserve(size);
@@ -187,6 +190,7 @@ void TetrisGrid::updateCurrent(sf::Time dt, MW::CommandQueue& commands) {
         if (staticBlocksAtLine == settings.size.x)
         {
             shrinkLine(y);
+            linesShrinked++;
         }
     }
 
@@ -198,6 +202,15 @@ void TetrisGrid::updateCurrent(sf::Time dt, MW::CommandQueue& commands) {
 //            spawnBlock(randX, 0, TetrisGrid::BlockType::PlayerFalling);
 //        }
         HasPlayerSpace = spawnFigure(settings.size.x / 2, TetrisGrid::BlockType::PlayerFalling);
+    }
+
+
+
+    if (auto label = scoreLabel.lock())
+    {
+        std::stringstream ss;
+        ss << linesShrinked;
+        label->SetText(ss.str());
     }
 }
 
@@ -465,5 +478,9 @@ vector<TetrisGrid::Block*> TetrisGrid::getBlocksOfType(TetrisGrid::BlockType typ
     }
 
     return blocks;
+}
+
+int32_t TetrisGrid::GetShrinkedLinesCount() {
+    return linesShrinked;
 }
 

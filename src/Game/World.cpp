@@ -8,12 +8,13 @@
 #include <MW/Node/RectangleShapeNode.hpp>
 #include <MW/Node/SpriteNode.hpp>
 #include <MW/Utility/Utility.h>
+#include <MW/Resources/FontConsts.hpp>
 
 #include <memory>
 
 const sf::Vector2f mapSize(400, 560);
 
-World::World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::TextureHolder &textureHolder, MW::InputManager &inputManager) :
+World::World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::TextureHolder &textureHolder, MW::FontHolder &fontsHolder, MW::InputManager &inputManager) :
         window(window),
         soundPlayer(soundPlayer),
         textureHolder(textureHolder),
@@ -56,9 +57,14 @@ World::World(sf::RenderWindow &window, MW::SoundPlayer &soundPlayer, MW::Texture
     mapPanel->move(centerDiff.x, centerDiff.y);
 
     // Фигуры
-    tetrisGrid = std::make_shared<TetrisGrid>(tgs, textureHolder.get(MW::Resources::Texture::Block));
+    auto label = std::make_shared<MW::Label>("", fontsHolder.get(MW::Resources::Font::Main),static_cast<int32_t>(MW::FontSize::StateInfo));
+
+
+    tetrisGrid = std::make_shared<TetrisGrid>(tgs, textureHolder.get(MW::Resources::Texture::Block), label);
     frontLayer.attachChild(tetrisGrid);
+    frontLayer.attachChild(label);
     tetrisGrid->setPosition(mapPanel->getPosition());
+    label->setPosition(mapPanel->getPosition() + sf::Vector2f(mapPanel->getSize().x / 2, -50));
 
     inputManager.AddCallback<World>("move_left", &World::moveFigureLeft, this);
     inputManager.AddCallback<World>("move_right", &World::moveFigureRight, this);
@@ -106,5 +112,9 @@ void World::rotateFigure(MW::EventDetails* details) {
 
 bool World::CheckSpace() {
     return tetrisGrid->HasPlayerSpace;
+}
+
+int32_t World::GetScore() {
+    return tetrisGrid->GetShrinkedLinesCount();
 }
 

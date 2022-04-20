@@ -27,7 +27,7 @@ private:
 private:
     World world;
     sf::Time timeElapsed;
-    sf::Time tickTime;
+    float tickTime;
 };
 
 #endif //TFALL_GAMESTATE_HPP

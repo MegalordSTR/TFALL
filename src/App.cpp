@@ -19,6 +19,7 @@ App::App(int windowWidth, int windowHeight, float targetFPS) :
 {
     window.setKeyRepeatEnabled(false);
     textureHolder.load(MW::Resources::Texture::Block, "blocks.png");
+    fontHolder.load(MW::Resources::Font::Main, "Sansation.ttf");
 
     inputManager.AddCallback<App>("window_close", &App::closeWindow, this);
 
