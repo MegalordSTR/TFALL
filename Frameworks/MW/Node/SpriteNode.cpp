@@ -1,7 +1,3 @@
-//
-// Created by Admin on 01.04.2022.
-//
-
 #include "SpriteNode.hpp"
 
 MW::SpriteNode::SpriteNode(MW::Vec2f size, sf::Texture& texture, MW::RectI textureRect) :

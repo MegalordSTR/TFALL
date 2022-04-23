@@ -1,7 +1,3 @@
-//
-// Created by Admin on 31.03.2022.
-//
-
 #include "RectangleShapeNode.hpp"
 
 

@@ -1,7 +1,3 @@
-//
-// Created by Admin on 18.03.2022.
-//
-
 #include "GameState.hpp"
 
 GameState::GameState(MW::StateStack &stack, const MW::State::Context &ctx) :
@@ -45,6 +41,3 @@ bool GameState::handleEvent(const sf::Event &event) {
 //    player.handleInputEvents(event, world.getCommandQueue());
     return true;
 }
-
-
-

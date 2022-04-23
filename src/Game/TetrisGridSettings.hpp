@@ -1,9 +1,4 @@
-//
-// Created by Admin on 30.03.2022.
-//
-
-#ifndef TFALL_TETRISGRIDSETTINGS_HPP
-#define TFALL_TETRISGRIDSETTINGS_HPP
+#pragma once
 
 #include <MW/Core/Mwtype.hpp>
 #include <cstdint>
@@ -18,5 +13,3 @@ struct TetrisGridSettings
             unitGridSize(unitGridSize)
     {}
 };
-
-#endif //TFALL_TETRISGRIDSETTINGS_HPP

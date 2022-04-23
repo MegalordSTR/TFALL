@@ -1,7 +1,3 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
 #include "CommandQueue.hpp"
 
 namespace MW
@@ -27,4 +23,3 @@ namespace MW
         return commands.empty();
     }
 }
-

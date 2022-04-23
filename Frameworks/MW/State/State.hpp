@@ -1,10 +1,4 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
-#ifndef TEST_STATE_H
-#define TEST_STATE_H
-
+#pragma once
 
 #include "StateIdentifiers.hpp"
 #include <MW/Resources/ResourceIdentifiers.hpp>
@@ -64,5 +58,3 @@ namespace MW
         Context ctx;
     };
 }
-
-#endif //TEST_STATE_H

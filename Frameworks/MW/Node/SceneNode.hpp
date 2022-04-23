@@ -1,9 +1,4 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
-#ifndef TEST_SCENENODE_H
-#define TEST_SCENENODE_H
+#pragma once
 
 #include <MW/Command/CommandQueue.hpp>
 #include "CategoryIdentifiers.hpp"
@@ -47,5 +42,3 @@ class SceneNode : public sf::Drawable, public sf::Transformable, private sf::Non
         CategoryType nodeType;
     };
 }
-
-#endif //TEST_SCENENODE_H

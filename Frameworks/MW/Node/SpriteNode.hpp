@@ -1,9 +1,4 @@
-//
-// Created by Admin on 01.04.2022.
-//
-
-#ifndef TFALL_SPRITENODE_HPP
-#define TFALL_SPRITENODE_HPP
+#pragma once
 
 #include "SceneNode.hpp"
 #include <MW/Core/Mwtype.hpp>
@@ -27,6 +22,3 @@ namespace MW
     };
 
 }
-
-
-#endif //TFALL_SPRITENODE_HPP

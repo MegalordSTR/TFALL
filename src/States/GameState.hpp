@@ -1,9 +1,4 @@
-//
-// Created by Admin on 18.03.2022.
-//
-
-#ifndef TFALL_GAMESTATE_HPP
-#define TFALL_GAMESTATE_HPP
+#pragma once
 
 #include <Game/World.hpp>
 
@@ -29,5 +24,3 @@ private:
     sf::Time timeElapsed;
     float tickTime;
 };
-
-#endif //TFALL_GAMESTATE_HPP

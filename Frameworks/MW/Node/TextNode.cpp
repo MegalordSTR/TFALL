@@ -1,7 +1,3 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
 #include "TextNode.hpp"
 #include <MW/Resources/FontConsts.hpp>
 #include <cmath>
@@ -36,5 +32,3 @@ namespace MW
         // Ничего
     }
 }
-
-

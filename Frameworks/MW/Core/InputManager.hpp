@@ -1,9 +1,4 @@
-//
-// Created by Admin on 29.03.2022.
-//
-
-#ifndef TFALL_INPUTMANAGER_HPP
-#define TFALL_INPUTMANAGER_HPP
+#pragma once
 
 #include <SFML/Graphics.hpp>
 
@@ -114,6 +109,3 @@ namespace MW
         bool hasFocus;
     };
 }
-
-
-#endif //TFALL_INPUTMANAGER_HPP

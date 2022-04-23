@@ -1,9 +1,4 @@
-//
-// Created by Admin on 18.03.2022.
-//
-
-#ifndef TFALL_WORLD_HPP
-#define TFALL_WORLD_HPP
+#pragma once
 
 #include "GridSpriteNode.hpp"
 #include "TetrisGrid.hpp"
@@ -12,7 +7,7 @@
 #include <MW/Node/SceneManager.hpp>
 #include <MW/Node/SoundNode.hpp>
 #include <MW/Node/Label.hpp>
-#include <MW/Input/InputManager.hpp>
+#include "MW/Core/InputManager.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -56,6 +51,3 @@ private:
 
     std::shared_ptr<TetrisGrid> tetrisGrid;
 };
-
-
-#endif //TFALL_WORLD_HPP

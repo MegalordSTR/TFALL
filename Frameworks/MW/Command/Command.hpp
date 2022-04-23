@@ -1,10 +1,4 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
-#ifndef TEST_COMMAND_H
-#define TEST_COMMAND_H
-
+#pragma once
 
 #include <MW/Node/CategoryIdentifiers.hpp>
 
@@ -36,7 +30,3 @@ namespace MW
         };
     }
 }
-
-
-
-#endif //TEST_COMMAND_H

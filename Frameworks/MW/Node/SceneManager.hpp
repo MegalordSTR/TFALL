@@ -1,9 +1,4 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
-#ifndef TEST_SCENEMANAGER_H
-#define TEST_SCENEMANAGER_H
+#pragma once
 
 #include <MW/Node/SceneNode.hpp>
 
@@ -36,6 +31,3 @@ namespace MW
         std::unordered_map<Layer, std::shared_ptr<SceneNode>> layers;
     };
 }
-
-
-#endif //TEST_SCENEMANAGER_H

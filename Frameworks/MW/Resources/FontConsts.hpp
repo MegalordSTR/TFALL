@@ -1,5 +1,4 @@
-#ifndef TEST_FONTCONSTS_H
-#define TEST_FONTCONSTS_H
+#pragma once
 
 namespace MW
 {
@@ -10,5 +9,3 @@ namespace MW
 		StateInfo = 36
 	};
 }
-
-#endif

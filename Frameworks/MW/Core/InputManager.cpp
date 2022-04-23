@@ -1,7 +1,3 @@
-//
-// Created by Admin on 29.03.2022.
-//
-
 #include "InputManager.hpp"
 #include <iostream>
 #include <fstream>

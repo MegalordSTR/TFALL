@@ -1,9 +1,4 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
-#ifndef TEST_TEXTNODE_H
-#define TEST_TEXTNODE_H
+#pragma once
 
 #include "SceneNode.hpp"
 #include <MW/Resources/ResourceHolder.hpp>
@@ -31,7 +26,3 @@ namespace MW
         sf::Text text;
     };
 }
-
-
-
-#endif //TEST_TEXTNODE_H

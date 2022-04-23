@@ -1,14 +1,10 @@
-//
-// Created by Admin on 17.03.2022.
-//
+#pragma once
 
-#ifndef TFALL_APP_HPP
-#define TFALL_APP_HPP
 #include "MW/State/StateStack.hpp"
 #include "MW/Resources/ResourceHolder.hpp"
 #include "MW/Resources/ResourceIdentifiers.hpp"
 #include "MW/Resources/SoundPlayer.hpp"
-#include "MW/Input/InputManager.hpp"
+#include "MW/Core/InputManager.hpp"
 
 #include <SFML/System.hpp>
 #include <SFML/Graphics.hpp>
@@ -40,5 +36,3 @@ private:
 
     MW::StateStack states;
 };
-
-#endif //TFALL_APP_HPP

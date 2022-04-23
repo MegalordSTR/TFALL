@@ -1,7 +1,3 @@
-//
-// Created by Admin on 17.03.2022.
-//
-
 #include "App.hpp"
 #include "MW/State/StateIdentifiers.hpp"
 #include "States/GameState.hpp"

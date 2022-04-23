@@ -1,9 +1,4 @@
-//
-// Created by Admin on 20.04.2022.
-//
-
 #include "Label.hpp"
-
 
 
 MW::Label::Label(const std::string &text, const sf::Font &font, int32_t size) :

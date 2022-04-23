@@ -1,5 +1,5 @@
-#ifndef TEST_RESOURCEHOLDER_H
-#define TEST_RESOURCEHOLDER_H
+#pragma once
+
 #include <string>
 #include <memory>
 #include <unordered_map>
@@ -61,6 +61,3 @@ namespace MW
         assert(inserted.second);
     }
 }
-
-
-#endif

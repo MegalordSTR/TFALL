@@ -1,9 +1,4 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
-#ifndef TEST_SOUNDPLAYER_H
-#define TEST_SOUNDPLAYER_H
+#pragma once
 
 #include "ResourceHolder.hpp"
 #include "ResourceIdentifiers.hpp"
@@ -30,5 +25,3 @@ namespace MW {
         std::list<sf::Sound> playingSounds;
     };
 }
-
-#endif //TEST_SOUNDPLAYER_H

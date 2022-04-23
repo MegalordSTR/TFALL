@@ -1,7 +1,3 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
 #include "State.hpp"
 #include "StateStack.hpp"
 

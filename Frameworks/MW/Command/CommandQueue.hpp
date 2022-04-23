@@ -1,10 +1,4 @@
-//
-// Created by Admin on 16.03.2022.
-//
-
-#ifndef TEST_COMMANDQUEUE_H
-#define TEST_COMMANDQUEUE_H
-
+#pragma once
 
 #include "Command.hpp"
 #include <queue>
@@ -25,7 +19,3 @@ namespace MW
         std::queue<Command> commands;
     };
 }
-
-
-
-#endif //TEST_COMMANDQUEUE_H

@@ -1,9 +1,4 @@
-//
-// Created by Admin on 30.03.2022.
-//
-
-#ifndef TFALL_MWTYPE_HPP
-#define TFALL_MWTYPE_HPP
+#pragma once
 
 #include <cstdint>
 
@@ -42,6 +37,3 @@ namespace MW {
     typedef Rect<int32_t> RectI;
     typedef Rect<float> RectF;
 }
-
-
-#endif //TFALL_MWTYPE_HPP

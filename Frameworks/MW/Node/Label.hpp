@@ -1,9 +1,4 @@
-//
-// Created by Admin on 20.04.2022.
-//
-
-#ifndef TFALL_LABEL_HPP
-#define TFALL_LABEL_HPP
+#pragma once
 
 #include "SceneNode.hpp"
 
@@ -28,5 +23,3 @@ namespace MW
         sf::Text text;
     };
 }
-
-#endif //TFALL_LABEL_HPP

@@ -1,9 +1,7 @@
-#ifndef TEST_RESOURCEIDENTIFIERS_H
-#define TEST_RESOURCEIDENTIFIERS_H
+#pragma once
+
 #include <SFML/Graphics.hpp>
 #include <SFML/Audio.hpp>
-
-
 
 namespace MW
 {
@@ -33,4 +31,3 @@ namespace MW
     typedef ResourceHolder<sf::SoundBuffer, Resources::SoundEffect> SoundBufferHolder;
 
 }
-#endif

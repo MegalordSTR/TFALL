@@ -1,7 +1,3 @@
-//
-// Created by Admin on 18.03.2022.
-//
-
 #include "World.hpp"
 #include "TetrisGridSettings.hpp"
 

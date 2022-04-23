@@ -1,9 +1,4 @@
-//
-// Created by Admin on 30.03.2022.
-//
-
-#ifndef TFALL_TETRISGRID_HPP
-#define TFALL_TETRISGRID_HPP
+#pragma once
 
 #include "TetrisGridSettings.hpp"
 #include "GridSpriteNode.hpp"
@@ -110,6 +105,3 @@ private:
     int32_t linesShrinked;
     std::weak_ptr<MW::Label> scoreLabel;
 };
-
-
-#endif //TFALL_TETRISGRID_HPP

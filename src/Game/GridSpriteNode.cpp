@@ -1,7 +1,3 @@
-//
-// Created by Admin on 19.03.2022.
-//
-
 #include "GridSpriteNode.hpp"
 
 GridSpriteNode::GridSpriteNode(const TetrisGridSettings& settings, const sf::Color gridColor, const float gridThickness) :

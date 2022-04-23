@@ -1,9 +1,4 @@
-//
-// Created by Admin on 31.03.2022.
-//
-
-#ifndef TFALL_RECTANGLESHAPENODE_HPP
-#define TFALL_RECTANGLESHAPENODE_HPP
+#pragma once
 
 #include "SceneNode.hpp"
 #include <MW/Core/Mwtype.hpp>
@@ -25,5 +20,3 @@ namespace MW
         sf::RectangleShape rectangleShape;
     };
 }
-
-#endif //TFALL_RECTANGLESHAPENODE_HPP

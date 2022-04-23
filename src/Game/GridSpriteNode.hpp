@@ -1,9 +1,4 @@
-//
-// Created by Admin on 19.03.2022.
-//
-
-#ifndef TFALL_GRIDSPRITENODE_HPP
-#define TFALL_GRIDSPRITENODE_HPP
+#pragma once
 
 #include <MW/Node/SceneNode.hpp>
 #include "TetrisGridSettings.hpp"
@@ -25,6 +20,3 @@ private:
 private:
     std::vector<std::unique_ptr<sf::RectangleShape>> lines;
 };
-
-
-#endif //TFALL_GRIDSPRITENODE_HPP
