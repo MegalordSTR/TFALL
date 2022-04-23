@@ -18,7 +18,7 @@ add_executable(TFALL
         Frameworks/MW/Resources/ResourceIdentifiers.hpp
         Frameworks/MW/Resources/ResourceHolder.hpp
         Frameworks/MW/Utility/Utility.cpp
-        Frameworks/MW/Utility/Utility.h
+        Frameworks/MW/Utility/Utility.hpp
         Frameworks/MW/Node/CategoryIdentifiers.hpp
         Frameworks/MW/Node/SceneManager.cpp
         Frameworks/MW/Node/SceneManager.hpp

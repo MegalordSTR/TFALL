@@ -3,7 +3,7 @@
 
 #include <MW/Node/RectangleShapeNode.hpp>
 #include <MW/Node/SpriteNode.hpp>
-#include <MW/Utility/Utility.h>
+#include "MW/Utility/Utility.hpp"
 #include <MW/Resources/FontConsts.hpp>
 
 #include <memory>

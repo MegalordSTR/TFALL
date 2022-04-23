@@ -1,7 +1,7 @@
 #include "TetrisGrid.hpp"
 #include "GridSpriteNode.hpp"
 
-#include <MW/Utility/Utility.h>
+#include "MW/Utility/Utility.hpp"
 
 #include <cassert>
 #include <stack>
