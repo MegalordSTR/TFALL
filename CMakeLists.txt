@@ -32,11 +32,6 @@ add_executable(TFALL
         Frameworks/MW/Command/Command.hpp
         Frameworks/MW/Command/CommandQueue.cpp
         Frameworks/MW/Command/CommandQueue.hpp
-        Frameworks/MW/State/State.cpp
-        Frameworks/MW/State/State.hpp
-        Frameworks/MW/State/StateIdentifiers.hpp
-        Frameworks/MW/State/StateStack.cpp
-        Frameworks/MW/State/StateStack.hpp
         src/App.cpp
         src/App.hpp
         src/States/GameState.cpp
