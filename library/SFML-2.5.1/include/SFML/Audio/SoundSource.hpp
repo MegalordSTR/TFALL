@@ -44,7 +44,7 @@ class SFML_AUDIO_API SoundSource : AlResource
 public:
 
     ////////////////////////////////////////////////////////////
-    /// \brief Enumeration of the sound source states
+    /// \brief Enumeration of the sound source stateManager
     ///
     ////////////////////////////////////////////////////////////
     enum Status

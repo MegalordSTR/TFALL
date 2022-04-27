@@ -324,7 +324,7 @@ private:
     /// \brief Draw the vertex buffer to a render target
     ///
     /// \param target render target to draw to
-    /// \param states Current render states
+    /// \param states Current render stateManager
     ///
     ////////////////////////////////////////////////////////////
     virtual void draw(RenderTarget& target, RenderStates states) const;
@@ -400,7 +400,7 @@ private:
 /// triangles.create(15);
 /// triangles.update(vertices);
 /// ...
-/// window.draw(triangles);
+/// m_window.draw(triangles);
 /// \endcode
 ///
 /// \see sf::Vertex, sf::VertexArray

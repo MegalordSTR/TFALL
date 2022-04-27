@@ -39,7 +39,7 @@ class Shader;
 class Texture;
 
 ////////////////////////////////////////////////////////////
-/// \brief Define the states used for drawing to a RenderTarget
+/// \brief Define the stateManager used for drawing to a RenderTarget
 ///
 ////////////////////////////////////////////////////////////
 class SFML_GRAPHICS_API RenderStates
@@ -49,7 +49,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Default constructor
     ///
-    /// Constructing a default set of render states is equivalent
+    /// Constructing a default set of render stateManager is equivalent
     /// to using sf::RenderStates::Default.
     /// The default set defines:
     /// \li the BlendAlpha blend mode
@@ -61,7 +61,7 @@ public:
     RenderStates();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct a default set of render states with a custom blend mode
+    /// \brief Construct a default set of render stateManager with a custom blend mode
     ///
     /// \param theBlendMode Blend mode to use
     ///
@@ -69,7 +69,7 @@ public:
     RenderStates(const BlendMode& theBlendMode);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct a default set of render states with a custom transform
+    /// \brief Construct a default set of render stateManager with a custom transform
     ///
     /// \param theTransform Transform to use
     ///
@@ -77,7 +77,7 @@ public:
     RenderStates(const Transform& theTransform);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct a default set of render states with a custom texture
+    /// \brief Construct a default set of render stateManager with a custom texture
     ///
     /// \param theTexture Texture to use
     ///
@@ -85,7 +85,7 @@ public:
     RenderStates(const Texture* theTexture);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct a default set of render states with a custom shader
+    /// \brief Construct a default set of render stateManager with a custom shader
     ///
     /// \param theShader Shader to use
     ///
@@ -93,7 +93,7 @@ public:
     RenderStates(const Shader* theShader);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Construct a set of render states with all its attributes
+    /// \brief Construct a set of render stateManager with all its attributes
     ///
     /// \param theBlendMode Blend mode to use
     /// \param theTransform Transform to use
@@ -107,7 +107,7 @@ public:
     ////////////////////////////////////////////////////////////
     // Static member data
     ////////////////////////////////////////////////////////////
-    static const RenderStates Default; ///< Special instance holding the default render states
+    static const RenderStates Default; ///< Special instance holding the default render stateManager
 
     ////////////////////////////////////////////////////////////
     // Member data
@@ -128,7 +128,7 @@ public:
 /// \class sf::RenderStates
 /// \ingroup graphics
 ///
-/// There are four global states that can be applied to
+/// There are four global stateManager that can be applied to
 /// the drawn objects:
 /// \li the blend mode: how pixels of the object are blended with the background
 /// \li the transform: how the object is positioned/rotated/scaled
@@ -136,7 +136,7 @@ public:
 /// \li the shader: what custom effect is applied to the object
 ///
 /// High-level objects such as sprites or text force some of
-/// these states when they are drawn. For example, a sprite
+/// these stateManager when they are drawn. For example, a sprite
 /// will set its own texture, so that you don't have to care
 /// about it when drawing the sprite.
 ///
@@ -147,10 +147,10 @@ public:
 /// on top of each object's transform.
 ///
 /// Most objects, especially high-level drawables, can be drawn
-/// directly without defining render states explicitly -- the
-/// default set of states is ok in most cases.
+/// directly without defining render stateManager explicitly -- the
+/// default set of stateManager is ok in most cases.
 /// \code
-/// window.draw(sprite);
+/// m_window.draw(sprite);
 /// \endcode
 ///
 /// If you want to use a single specific render state,
@@ -158,12 +158,12 @@ public:
 /// function: sf::RenderStates has an implicit one-argument
 /// constructor for each state.
 /// \code
-/// window.draw(sprite, shader);
+/// m_window.draw(sprite, shader);
 /// \endcode
 ///
 /// When you're inside the Draw function of a drawable
 /// object (inherited from sf::Drawable), you can
-/// either pass the render states unmodified, or change
+/// either pass the render stateManager unmodified, or change
 /// some of them.
 /// For example, a transformable object will combine the
 /// current transform with its own transform. A sprite will

@@ -297,7 +297,7 @@ private:
 /// A view is composed of a source rectangle, which defines
 /// what part of the 2D scene is shown, and a target viewport,
 /// which defines where the contents of the source rectangle
-/// will be displayed on the render target (window or texture).
+/// will be displayed on the render target (m_window or texture).
 ///
 /// The viewport allows to map the scene to a custom part
 /// of the render target, and can be used for split-screen
@@ -311,7 +311,7 @@ private:
 ///
 /// Usage example:
 /// \code
-/// sf::RenderWindow window;
+/// sf::RenderWindow m_window;
 /// sf::View view;
 ///
 /// // Initialize the view to a rectangle located at (100, 100) and with a size of 400x200
@@ -320,20 +320,20 @@ private:
 /// // Rotate it by 45 degrees
 /// view.rotate(45);
 ///
-/// // Set its target viewport to be half of the window
+/// // Set its target viewport to be half of the m_window
 /// view.setViewport(sf::FloatRect(0.f, 0.f, 0.5f, 1.f));
 ///
 /// // Apply it
-/// window.setView(view);
+/// m_window.setView(view);
 ///
 /// // render stuff
-/// window.draw(someSprite);
+/// m_window.draw(someSprite);
 ///
 /// // Set the default view back
-/// window.setView(window.getDefaultView());
+/// m_window.setView(m_window.getDefaultView());
 ///
 /// // render stuff not affected by the view
-/// window.draw(someText);
+/// m_window.draw(someText);
 /// \endcode
 ///
 /// See also the note on coordinates and undistorted rendering in sf::Transformable.

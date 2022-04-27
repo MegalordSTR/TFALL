@@ -46,7 +46,7 @@ class Drawable;
 class VertexBuffer;
 
 ////////////////////////////////////////////////////////////
-/// \brief Base class for all render targets (window, texture, ...)
+/// \brief Base class for all render targets (m_window, texture, ...)
 ///
 ////////////////////////////////////////////////////////////
 class SFML_GRAPHICS_API RenderTarget : NonCopyable
@@ -231,7 +231,7 @@ public:
     /// \brief Draw a drawable object to the render target
     ///
     /// \param drawable Object to draw
-    /// \param states   render states to use for drawing
+    /// \param states   render stateManager to use for drawing
     ///
     ////////////////////////////////////////////////////////////
     void draw(const Drawable& drawable, const RenderStates& states = RenderStates::Default);
@@ -242,7 +242,7 @@ public:
     /// \param vertices    Pointer to the vertices
     /// \param vertexCount Number of vertices in the array
     /// \param type        Type of primitives to draw
-    /// \param states      render states to use for drawing
+    /// \param states      render stateManager to use for drawing
     ///
     ////////////////////////////////////////////////////////////
     void draw(const Vertex* vertices, std::size_t vertexCount,
@@ -252,7 +252,7 @@ public:
     /// \brief Draw primitives defined by a vertex buffer
     ///
     /// \param vertexBuffer Vertex buffer
-    /// \param states       render states to use for drawing
+    /// \param states       render stateManager to use for drawing
     ///
     ////////////////////////////////////////////////////////////
     void draw(const VertexBuffer& vertexBuffer, const RenderStates& states = RenderStates::Default);
@@ -263,7 +263,7 @@ public:
     /// \param vertexBuffer Vertex buffer
     /// \param firstVertex  Index of the first vertex to render
     /// \param vertexCount  Number of vertices to render
-    /// \param states       render states to use for drawing
+    /// \param states       render stateManager to use for drawing
     ///
     ////////////////////////////////////////////////////////////
     void draw(const VertexBuffer& vertexBuffer, std::size_t firstVertex, std::size_t vertexCount, const RenderStates& states = RenderStates::Default);
@@ -299,31 +299,31 @@ public:
     virtual bool setActive(bool active = true);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Save the current OpenGL render states and matrices
+    /// \brief Save the current OpenGL render stateManager and matrices
     ///
     /// This function can be used when you mix SFML drawing
     /// and direct OpenGL rendering. Combined with popGLStates,
     /// it ensures that:
-    /// \li SFML's internal states are not messed up by your OpenGL code
-    /// \li your OpenGL states are not modified by a call to a SFML function
+    /// \li SFML's internal stateManager are not messed up by your OpenGL code
+    /// \li your OpenGL stateManager are not modified by a call to a SFML function
     ///
     /// More specifically, it must be used around code that
     /// calls Draw functions. Example:
     /// \code
     /// // OpenGL code here...
-    /// window.pushGLStates();
-    /// window.draw(...);
-    /// window.draw(...);
-    /// window.popGLStates();
+    /// m_window.pushGLStates();
+    /// m_window.draw(...);
+    /// m_window.draw(...);
+    /// m_window.popGLStates();
     /// // OpenGL code here...
     /// \endcode
     ///
     /// Note that this function is quite expensive: it saves all the
-    /// possible OpenGL states and matrices, even the ones you
+    /// possible OpenGL stateManager and matrices, even the ones you
     /// don't care about. Therefore it should be used wisely.
     /// It is provided for convenience, but the best results will
-    /// be achieved if you handle OpenGL states yourself (because
-    /// you know which states have really changed, and need to be
+    /// be achieved if you handle OpenGL stateManager yourself (because
+    /// you know which stateManager have really changed, and need to be
     /// saved and restored). Take a look at the resetGLStates
     /// function if you do so.
     ///
@@ -333,7 +333,7 @@ public:
     void pushGLStates();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Restore the previously saved OpenGL render states and matrices
+    /// \brief Restore the previously saved OpenGL render stateManager and matrices
     ///
     /// See the description of pushGLStates to get a detailed
     /// description of these functions.
@@ -344,21 +344,21 @@ public:
     void popGLStates();
 
     ////////////////////////////////////////////////////////////
-    /// \brief Reset the internal OpenGL states so that the target is ready for drawing
+    /// \brief Reset the internal OpenGL stateManager so that the target is ready for drawing
     ///
     /// This function can be used when you mix SFML drawing
     /// and direct OpenGL rendering, if you choose not to use
     /// pushGLStates/popGLStates. It makes sure that all OpenGL
-    /// states needed by SFML are set, so that subsequent draw()
+    /// stateManager needed by SFML are set, so that subsequent draw()
     /// calls will work as expected.
     ///
     /// Example:
     /// \code
     /// // OpenGL code here...
     /// glPushAttrib(...);
-    /// window.resetGLStates();
-    /// window.draw(...);
-    /// window.draw(...);
+    /// m_window.resetGLStates();
+    /// m_window.draw(...);
+    /// m_window.draw(...);
     /// glPopAttrib(...);
     /// // OpenGL code here...
     /// \endcode
@@ -427,7 +427,7 @@ private:
     /// \brief Setup environment for drawing
     ///
     /// \param useVertexCache Are we going to use the vertex cache?
-    /// \param states         render states to use for drawing
+    /// \param states         render stateManager to use for drawing
     ///
     ////////////////////////////////////////////////////////////
     void setupDraw(bool useVertexCache, const RenderStates& states);
@@ -445,13 +445,13 @@ private:
     ////////////////////////////////////////////////////////////
     /// \brief Clean up environment after drawing
     ///
-    /// \param states render states used for drawing
+    /// \param states render stateManager used for drawing
     ///
     ////////////////////////////////////////////////////////////
     void cleanupDraw(const RenderStates& states);
 
     ////////////////////////////////////////////////////////////
-    /// \brief render states cache
+    /// \brief render stateManager cache
     ///
     ////////////////////////////////////////////////////////////
     struct StatesCache
@@ -459,7 +459,7 @@ private:
         enum {VertexCacheSize = 4};
 
         bool      enable;         ///< Is the cache enabled?
-        bool      glStatesSet;    ///< Are our internal GL states set yet?
+        bool      glStatesSet;    ///< Are our internal GL stateManager set yet?
         bool      viewChanged;    ///< Has the current view changed since last draw?
         BlendMode lastBlendMode;  ///< Cached blending mode
         Uint64    lastTextureId;  ///< Cached texture
@@ -473,7 +473,7 @@ private:
     ////////////////////////////////////////////////////////////
     View        m_defaultView; ///< Default view
     View        m_view;        ///< Current view
-    StatesCache m_cache;       ///< render states cache
+    StatesCache m_cache;       ///< render stateManager cache
     Uint64      m_id;          ///< Unique number that identifies the RenderTarget
 };
 
@@ -502,7 +502,7 @@ private:
 /// On top of that, render targets are still able to render direct
 /// OpenGL stuff. It is even possible to mix together OpenGL calls
 /// and regular SFML drawing commands. When doing so, make sure that
-/// OpenGL states are not messed up by calling the
+/// OpenGL stateManager are not messed up by calling the
 /// pushGLStates/popGLStates functions.
 ///
 /// \see sf::RenderWindow, sf::RenderTexture, sf::View

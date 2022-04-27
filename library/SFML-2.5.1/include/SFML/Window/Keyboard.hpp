@@ -88,11 +88,11 @@ public:
         LControl,     ///< The left Control key
         LShift,       ///< The left Shift key
         LAlt,         ///< The left Alt key
-        LSystem,      ///< The left OS specific key: window (Windows and Linux), apple (MacOS X), ...
+        LSystem,      ///< The left OS specific key: m_window (Windows and Linux), apple (MacOS X), ...
         RControl,     ///< The right Control key
         RShift,       ///< The right Shift key
         RAlt,         ///< The right Alt key
-        RSystem,      ///< The right OS specific key: window (Windows and Linux), apple (MacOS X), ...
+        RSystem,      ///< The right OS specific key: m_window (Windows and Linux), apple (MacOS X), ...
         Menu,         ///< The Menu key
         LBracket,     ///< The [ key
         RBracket,     ///< The ] key
@@ -195,20 +195,20 @@ public:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Keyboard
-/// \ingroup window
+/// \ingroup m_window
 ///
 /// sf::Keyboard provides an interface to the state of the
 /// keyboard. It only contains static functions (a single
 /// keyboard is assumed), so it's not meant to be instantiated.
 ///
 /// This class allows users to query the keyboard state at any
-/// time and directly, without having to deal with a window and
+/// time and directly, without having to deal with a m_window and
 /// its events. Compared to the KeyPressed and KeyReleased events,
 /// sf::Keyboard can retrieve the state of a key at any time
 /// (you don't need to store and update a boolean on your side
 /// in order to know if a key is pressed or released), and you
 /// always get the real state of the keyboard, even if keys are
-/// pressed or released when your window is out of focus and no
+/// pressed or released when your m_window is out of focus and no
 /// event is triggered.
 ///
 /// Usage example:

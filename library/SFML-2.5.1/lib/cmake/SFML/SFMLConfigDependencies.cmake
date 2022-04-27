@@ -41,7 +41,7 @@ if(SFML_STATIC_LIBRARIES)
         endif()
     endfunction()
 
-    # sfml-window
+    # sfml-m_window
     list(FIND SFML_FIND_COMPONENTS "window" FIND_SFML_WINDOW_COMPONENT_INDEX)
     if(FIND_SFML_WINDOW_COMPONENT_INDEX GREATER -1)
         if(FIND_SFML_OS_LINUX OR FIND_SFML_OS_FREEBSD)

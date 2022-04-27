@@ -1,6 +1,7 @@
 #pragma once
 
-#include "MW/State/StateStack.hpp"
+#include "MW/Core/SharedContext.hpp"
+#include "MW/Core/StateManager.hpp"
 #include "MW/Resources/ResourceHolder.hpp"
 #include "MW/Resources/ResourceIdentifiers.hpp"
 #include "MW/Resources/SoundPlayer.hpp"
@@ -34,5 +35,7 @@ private:
     MW::TextureHolder textureHolder;
     MW::SoundPlayer soundPlayer;
 
-    MW::StateStack states;
+    std::shared_ptr<MW::SharedContext> ctx;
+
+    std::shared_ptr<MW::StateManager> stateManager;
 };

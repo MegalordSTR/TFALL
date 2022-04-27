@@ -31,8 +31,8 @@ namespace sf
 namespace Style
 {
     ////////////////////////////////////////////////////////////
-    /// \ingroup window
-    /// \brief Enumeration of the window styles
+    /// \ingroup m_window
+    /// \brief Enumeration of the m_window styles
     ///
     ////////////////////////////////////////////////////////////
     enum
@@ -43,7 +43,7 @@ namespace Style
         Close      = 1 << 2, ///< Title bar + close button
         Fullscreen = 1 << 3, ///< Fullscreen mode (this flag and all others are mutually exclusive)
 
-        Default = Titlebar | Resize | Close ///< Default window style
+        Default = Titlebar | Resize | Close ///< Default m_window style
     };
 }
 

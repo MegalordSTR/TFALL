@@ -64,7 +64,7 @@ set_target_properties(sfml-main PROPERTIES
   INTERFACE_INCLUDE_DIRECTORIES "${_IMPORT_PREFIX}/include"
 )
 
-# Create imported target sfml-window
+# Create imported target sfml-m_window
 add_library(sfml-window SHARED IMPORTED)
 
 set_target_properties(sfml-window PROPERTIES

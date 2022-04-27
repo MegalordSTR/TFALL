@@ -63,7 +63,7 @@ protected:
     /// drawn.
     ///
     /// \param target render target to draw to
-    /// \param states Current render states
+    /// \param states Current render stateManager
     ///
     ////////////////////////////////////////////////////////////
     virtual void draw(RenderTarget& target, RenderStates states) const = 0;
@@ -86,8 +86,8 @@ protected:
 /// draw virtual function.
 ///
 /// Note that inheriting from sf::Drawable is not mandatory,
-/// but it allows this nice syntax "window.draw(object)" rather
-/// than "object.draw(window)", which is more consistent with other
+/// but it allows this nice syntax "m_window.draw(object)" rather
+/// than "object.draw(m_window)", which is more consistent with other
 /// SFML classes.
 ///
 /// Example:
@@ -100,14 +100,14 @@ protected:
 ///
 /// private:
 ///
-///     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+///     virtual void draw(sf::RenderTarget& target, sf::RenderStates stateManager) const
 ///     {
 ///         // You can draw other high-level objects
-///         target.draw(m_sprite, states);
+///         target.draw(m_sprite, stateManager);
 ///
 ///         // ... or use the low-level API
-///         states.texture = &m_texture;
-///         target.draw(m_vertices, states);
+///         stateManager.texture = &m_texture;
+///         target.draw(m_vertices, stateManager);
 ///
 ///         // ... or draw with OpenGL directly
 ///         glBegin(GL_QUADS);

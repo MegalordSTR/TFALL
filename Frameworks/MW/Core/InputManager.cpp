@@ -10,7 +10,6 @@ namespace MW
     InputManager::~InputManager(){
         for (auto &itr : bindings){
             delete itr.second;
-            itr.second = nullptr;
         }
     }
 
@@ -27,6 +26,10 @@ namespace MW
         delete itr->second;
         bindings.erase(itr);
         return true;
+    }
+
+    void InputManager::SetCurrentState(StateType l_state){
+        m_currentState = l_state;
     }
 
     void InputManager::SetFocus(const bool& focus){ hasFocus = focus; }
@@ -105,9 +108,23 @@ namespace MW
             }
 
             if (bind->events.size() == bind->c){
-                auto callItr = callbacks.find(bind->name);
-                if(callItr != callbacks.end()){
-                    callItr->second(&bind->details);
+                auto stateCallbacks = callbacks.find(m_currentState);
+                auto otherCallbacks = callbacks.find(StateType(0));
+
+                if (stateCallbacks != callbacks.end()){
+                    auto callItr = stateCallbacks->second.find(bind->name);
+                    if (callItr != stateCallbacks->second.end()){
+                        // Pass in information about events.
+                        callItr->second(&bind->details);
+                    }
+                }
+
+                if (otherCallbacks != callbacks.end()){
+                    auto callItr = otherCallbacks->second.find(bind->name);
+                    if (callItr != otherCallbacks->second.end()){
+                        // Pass in information about events.
+                        callItr->second(&bind->details);
+                    }
                 }
             }
             bind->c = 0;
@@ -118,15 +135,15 @@ namespace MW
     void InputManager::LoadBindings(){
         std::string delimiter = ":";
 
-        std::ifstream bindings;
-        bindings.open("keys.cfg");
-        if (!bindings.is_open()){ std::cout << "! Failed loading keys.cfg." << std::endl; return; }
+        std::ifstream bindingsStream;
+        bindingsStream.open("keys.cfg");
+        if (!bindingsStream.is_open()){ std::cout << "! Failed loading keys.cfg." << std::endl; return; }
         std::string line;
-        while (std::getline(bindings, line)){
+        while (std::getline(bindingsStream, line)){
             std::stringstream keystream(line);
             std::string callbackName;
             keystream >> callbackName;
-            Binding* bind = new Binding(callbackName);
+            auto bind = new Binding(callbackName);
             while (!keystream.eof()){
                 std::string keyval;
                 keystream >> keyval;
@@ -149,6 +166,6 @@ namespace MW
             if (!AddBinding(bind)){ delete bind; }
             bind = nullptr;
         }
-        bindings.close();
+        bindingsStream.close();
     }
 }

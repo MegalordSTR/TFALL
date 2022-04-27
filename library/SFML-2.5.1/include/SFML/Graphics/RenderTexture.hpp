@@ -256,7 +256,7 @@ private:
 /// It implements the same 2D drawing and OpenGL-related functions
 /// (see their base class sf::RenderTarget for more details),
 /// the difference is that the result is stored in an off-screen
-/// texture rather than being show in a window.
+/// texture rather than being show in a m_window.
 ///
 /// Rendering to a texture can be useful in a variety of situations:
 /// \li precomputing a complex static texture (like a level's background from multiple tiles)
@@ -267,8 +267,8 @@ private:
 /// Usage example:
 ///
 /// \code
-/// // Create a new render-window
-/// sf::RenderWindow window(sf::VideoMode(800, 600), "SFML window");
+/// // Create a new render-m_window
+/// sf::RenderWindow m_window(sf::VideoMode(800, 600), "SFML m_window");
 ///
 /// // Create a new render-texture
 /// sf::RenderTexture texture;
@@ -276,7 +276,7 @@ private:
 ///     return -1;
 ///
 /// // The main loop
-/// while (window.isOpen())
+/// while (m_window.isOpen())
 /// {
 ///    // Event processing
 ///    // ...
@@ -292,15 +292,15 @@ private:
 ///    // We're done drawing to the texture
 ///    texture.display();
 ///
-///    // Now we start rendering to the window, clear it first
-///    window.clear();
+///    // Now we start rendering to the m_window, clear it first
+///    m_window.clear();
 ///
 ///    // Draw the texture
 ///    sf::Sprite sprite(texture.getTexture());
-///    window.draw(sprite);
+///    m_window.draw(sprite);
 ///
 ///    // End the current frame and display its contents on screen
-///    window.display();
+///    m_window.display();
 /// }
 /// \endcode
 ///

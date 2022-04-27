@@ -71,7 +71,11 @@ namespace MW
     };
 
     using Bindings = std::unordered_map<std::string, Binding*>;
-    using Callbacks = std::unordered_map<std::string, std::function<void(EventDetails*)>>;
+    // Callback container.
+    using CallbackContainer = std::unordered_map<std::string, std::function<void(EventDetails*)>>;
+    // State callback container.
+    enum class StateType;
+    using Callbacks = std::unordered_map<StateType, CallbackContainer>;
 
     class InputManager{
     public:
@@ -81,18 +85,25 @@ namespace MW
         bool AddBinding(Binding *binding);
         bool RemoveBinding(std::string name);
 
+        void SetCurrentState(StateType l_state);
         void SetFocus(const bool& focus);
 
         // Needs to be defined in the header!
         template<typename T>
-        bool AddCallback(const std::string& name, std::function<void(T*, EventDetails*)> func, T* instance)
+        bool AddCallback(StateType l_state, const std::string& name, std::function<void(T*, EventDetails*)> func, T* instance)
         {
+            auto itr = callbacks.emplace(l_state, CallbackContainer()).first;
             auto temp = std::bind(func, instance, std::placeholders::_1);
-            return callbacks.emplace(name, temp).second;
+            return itr->second.emplace(name, temp).second;
         }
 
-        void RemoveCallback(const std::string& name){
-            callbacks.erase(name);
+        bool RemoveCallback(StateType l_state, const std::string& name){
+            auto itr = callbacks.find(l_state);
+            if (itr == callbacks.end()){ return false; }
+            auto itr2 = itr->second.find(name);
+            if (itr2 == itr->second.end()){ return false; }
+            itr->second.erase(name);
+            return true;
         }
 
         void HandleEvent(sf::Event& event);
@@ -104,8 +115,10 @@ namespace MW
     private:
         void LoadBindings();
 
+        StateType m_currentState;
         Bindings bindings;
         Callbacks callbacks;
+
         bool hasFocus;
     };
 }

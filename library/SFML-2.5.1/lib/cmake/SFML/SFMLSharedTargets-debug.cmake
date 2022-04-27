@@ -25,7 +25,7 @@ set_target_properties(sfml-main PROPERTIES
 list(APPEND _IMPORT_CHECK_TARGETS sfml-main )
 list(APPEND _IMPORT_CHECK_FILES_FOR_sfml-main "${_IMPORT_PREFIX}/lib/libsfml-main-d.a" )
 
-# Import target "sfml-window" for configuration "Debug"
+# Import target "sfml-m_window" for configuration "Debug"
 set_property(TARGET sfml-window APPEND PROPERTY IMPORTED_CONFIGURATIONS DEBUG)
 set_target_properties(sfml-window PROPERTIES
   IMPORTED_IMPLIB_DEBUG "${_IMPORT_PREFIX}/lib/libsfml-window-d.a"

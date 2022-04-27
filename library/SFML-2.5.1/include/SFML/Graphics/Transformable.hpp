@@ -377,17 +377,17 @@ private:
 /// \code
 /// class MyEntity : public sf::Transformable, public sf::Drawable
 /// {
-///     virtual void draw(sf::RenderTarget& target, sf::RenderStates states) const
+///     virtual void draw(sf::RenderTarget& target, sf::RenderStates stateManager) const
 ///     {
-///         states.transform *= getTransform();
-///         target.draw(..., states);
+///         stateManager.transform *= getTransform();
+///         target.draw(..., stateManager);
 ///     }
 /// };
 ///
 /// MyEntity entity;
 /// entity.setPosition(10, 20);
 /// entity.setRotation(45);
-/// window.draw(entity);
+/// m_window.draw(entity);
 /// \endcode
 ///
 /// It can also be used as a member, if you don't want to use
@@ -418,7 +418,7 @@ private:
 /// like slow movements or rotations to appear smoothly, it can lead to
 /// unwanted results in some cases, for example blurred or distorted objects.
 /// In order to render a sf::Drawable object pixel-perfectly, make sure
-/// the involved coordinates allow a 1:1 mapping of pixels in the window
+/// the involved coordinates allow a 1:1 mapping of pixels in the m_window
 /// to texels (pixels in the texture). More specifically, this means:
 /// * The object's position, origin and scale have no fractional part
 /// * The object's and the view's rotation are a multiple of 90 degrees

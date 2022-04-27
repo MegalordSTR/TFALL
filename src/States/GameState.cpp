@@ -1,43 +1,56 @@
 #include "GameState.hpp"
+#include <MW/Core/StateManager.hpp>
 
-GameState::GameState(MW::StateStack &stack, const MW::State::Context &ctx) :
-    State(stack, ctx),
-    world(*ctx.window, *ctx.soundPlayer, *ctx.textures, *ctx.fonts, *ctx.inputManager)
+GameState::GameState(MW::StateManager* l_stateManager) :
+        MW::BaseState(l_stateManager),
+        tickTime(0.25f),
+        world(nullptr)
 {
-    tickTime = 0.35f;
 }
 
-GameState::~GameState() {
-    getContext().soundPlayer->stopAndRemoveAll();
+
+void GameState::OnCreate() {
+    auto &ctx = *m_stateMgr->GetContext();
+    world = std::make_unique<World>(*ctx.window, *ctx.soundPlayer, *ctx.textures, *ctx.fonts, *ctx.inputManager);
+    ctx.inputManager->AddCallback<GameState>(MW::StateType::Game, "toggle_world_debug", &GameState::toggleDebug, this);
 }
 
-void GameState::draw() {
-    world.draw();
+void GameState::OnDestroy() {
+    auto &ctx = *m_stateMgr->GetContext();
+    ctx.soundPlayer->stopAndRemoveAll();
+    ctx.inputManager->RemoveCallback(MW::StateType::Game, "toggle_world_debug");
 }
 
-bool GameState::update(sf::Time dt) {
+void GameState::Activate() {
+
+}
+
+void GameState::Deactivate() {
+
+}
+
+void GameState::Update(const sf::Time &dt) {
     timeElapsed += dt;
 
-    auto moddedTickTime = sf::seconds(tickTime * static_cast<float>((1 - static_cast<float>(world.GetScore()) / 100)));
+    auto moddedTickTime = sf::seconds(tickTime * static_cast<float>((1 - static_cast<float>(world->GetScore()) / 100)));
     if (timeElapsed > moddedTickTime)
     {
         timeElapsed -= moddedTickTime;
-        world.update(moddedTickTime);
+        world->update(moddedTickTime);
     }
 
-    if (!world.CheckSpace())
+    if (!world->CheckSpace())
     {
-        requestStateClear();
-        requestStackPush(MW::States::ID::Game);
+        OnDestroy();
+        auto &ctx = *m_stateMgr->GetContext();
+        world = std::make_unique<World>(*ctx.window, *ctx.soundPlayer, *ctx.textures, *ctx.fonts, *ctx.inputManager);
     }
-
-
-
-    return true;
 }
 
-// TODO: подумать что вообще делать тут
-bool GameState::handleEvent(const sf::Event &event) {
-//    player.handleInputEvents(event, world.getCommandQueue());
-    return true;
+void GameState::Draw() {
+    world->draw();
+}
+
+void GameState::toggleDebug(MW::EventDetails* eventDetails) {
+    world->ToggleDebug();
 }

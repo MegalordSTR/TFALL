@@ -12,7 +12,7 @@
 
 namespace MW
 {
-    class StateStack : sf::NonCopyable
+    class [[deprecated]] StateStack : sf::NonCopyable
     {
     public:
 

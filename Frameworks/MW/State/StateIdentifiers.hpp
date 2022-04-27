@@ -4,7 +4,7 @@ namespace MW
 {
     namespace States
     {
-        enum class ID
+        enum class [[deprecated]] ID
         {
             None,
             Menu,

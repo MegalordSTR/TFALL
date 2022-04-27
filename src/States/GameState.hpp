@@ -2,25 +2,31 @@
 
 #include <Game/World.hpp>
 
-#include "MW/State/State.hpp"
+#include <MW/Core/InputManager.hpp>
+#include <MW/Core/BaseState.hpp>
 
-class GameState : public MW::State {
+class GameState : public MW::BaseState {
 public:
-    GameState(MW::StateStack &stack, const Context &ctx);
+    explicit GameState(MW::StateManager* l_StateManager);
 
 public:
+    void OnCreate() override;
 
-    void draw() override;
+    void OnDestroy() override;
 
-    bool update(sf::Time dt) override;
+    void Activate() override;
 
-    bool handleEvent(const sf::Event &event) override;
+    void Deactivate() override;
+
+    void Update(const sf::Time &dt) override;
+
+    void Draw() override;
 
 private:
-    ~GameState() override;
+    void toggleDebug(MW::EventDetails* eventDetails);
 
 private:
-    World world;
+    std::unique_ptr<World> world;
     sf::Time timeElapsed;
     float tickTime;
 };

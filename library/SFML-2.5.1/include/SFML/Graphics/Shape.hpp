@@ -271,7 +271,7 @@ private:
     /// \brief Draw the shape to a render target
     ///
     /// \param target render target to draw to
-    /// \param states Current render states
+    /// \param states Current render stateManager
     ///
     ////////////////////////////////////////////////////////////
     virtual void draw(RenderTarget& target, RenderStates states) const;

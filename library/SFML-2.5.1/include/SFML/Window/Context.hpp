@@ -160,10 +160,10 @@ private:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Context
-/// \ingroup window
+/// \ingroup m_window
 ///
 /// If you need to make OpenGL calls without having an
-/// active window (like in a thread), you can use an
+/// active m_window (like in a thread), you can use an
 /// instance of this class to get a valid context.
 ///
 /// Having a valid context is necessary for *every* OpenGL call.

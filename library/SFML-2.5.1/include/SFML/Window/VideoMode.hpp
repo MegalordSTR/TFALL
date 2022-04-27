@@ -71,7 +71,7 @@ public:
     ////////////////////////////////////////////////////////////
     /// \brief Retrieve all the video modes supported in fullscreen mode
     ///
-    /// When creating a fullscreen window, the video mode is restricted
+    /// When creating a fullscreen m_window, the video mode is restricted
     /// to be compatible with what the graphics driver and monitor
     /// support. This function returns the complete list of all video
     /// modes that can be used in fullscreen mode.
@@ -184,7 +184,7 @@ SFML_WINDOW_API bool operator >=(const VideoMode& left, const VideoMode& right);
 
 ////////////////////////////////////////////////////////////
 /// \class sf::VideoMode
-/// \ingroup window
+/// \ingroup m_window
 ///
 /// A video mode is defined by a width and a height (in pixels)
 /// and a depth (in bits per pixel). Video modes are used to
@@ -193,7 +193,7 @@ SFML_WINDOW_API bool operator >=(const VideoMode& left, const VideoMode& right);
 /// The main usage of video modes is for fullscreen mode:
 /// indeed you must use one of the valid video modes
 /// allowed by the OS (which are defined by what the monitor
-/// and the graphics card support), otherwise your window
+/// and the graphics card support), otherwise your m_window
 /// creation will just fail.
 ///
 /// sf::VideoMode provides a static function for retrieving
@@ -220,9 +220,9 @@ SFML_WINDOW_API bool operator >=(const VideoMode& left, const VideoMode& right);
 ///               << mode.bitsPerPixel << " bpp" << std::endl;
 /// }
 ///
-/// // Create a window with the same pixel depth as the desktop
+/// // Create a m_window with the same pixel depth as the desktop
 /// sf::VideoMode desktop = sf::VideoMode::getDesktopMode();
-/// window.create(sf::VideoMode(1024, 768, desktop.bitsPerPixel), "SFML window");
+/// m_window.create(sf::VideoMode(1024, 768, desktop.bitsPerPixel), "SFML m_window");
 /// \endcode
 ///
 ////////////////////////////////////////////////////////////

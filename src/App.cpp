@@ -1,7 +1,5 @@
 #include "App.hpp"
-#include "MW/State/StateIdentifiers.hpp"
-#include "States/GameState.hpp"
-#include <functional>
+#include <States/GameState.hpp>
 
 App::App(int windowWidth, int windowHeight, float targetFPS) :
         window(sf::VideoMode(windowWidth, windowHeight), "App", sf::Style::Close),
@@ -11,17 +9,25 @@ App::App(int windowWidth, int windowHeight, float targetFPS) :
         fontHolder(),
         textureHolder(),
         soundPlayer(),
-        states(MW::State::Context(window, inputManager, fontHolder, textureHolder, soundPlayer))
+        stateManager(nullptr)
 {
+    ctx = std::make_shared<MW::SharedContext>();
+    ctx->window = &window;
+    ctx->inputManager = &inputManager;
+    ctx->fonts = &fontHolder;
+    ctx->textures = &textureHolder;
+    ctx->soundPlayer = &soundPlayer;
+
+    stateManager = std::make_shared<MW::StateManager>(ctx.get());
+
     window.setKeyRepeatEnabled(false);
     textureHolder.load(MW::Resources::Texture::Block, "blocks.png");
     fontHolder.load(MW::Resources::Font::Main, "Sansation.ttf");
 
-    inputManager.AddCallback<App>("window_close", &App::closeWindow, this);
+    inputManager.AddCallback<App>(MW::StateType::Game, "window_close", &App::closeWindow, this);
 
-    states.registerState<GameState>(MW::States::ID::Game);
-
-    states.pushState(MW::States::ID::Game);
+    stateManager->RegisterState<GameState>(MW::StateType::Game);
+    stateManager->SwitchTo(MW::StateType::Game);
 }
 
 void App::Run() {
@@ -53,12 +59,12 @@ void App::handleInput() {
 }
 
 void App::update(sf::Time dt) {
-    states.update(dt);
+    stateManager->Update(dt);
 }
 
 void App::render() {
     window.clear(sf::Color::White);
-    states.draw();
+    stateManager->Draw();
     window.display();
 }
 

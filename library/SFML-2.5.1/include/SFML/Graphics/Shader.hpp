@@ -824,14 +824,14 @@ private:
 /// To apply a shader to a drawable, you must pass it as an
 /// additional parameter to the \ref RenderWindow::draw function:
 /// \code
-/// window.draw(sprite, &shader);
+/// m_window.draw(sprite, &shader);
 /// \endcode
 ///
 /// ... which is in fact just a shortcut for this:
 /// \code
-/// sf::RenderStates states;
-/// states.shader = &shader;
-/// window.draw(sprite, states);
+/// sf::RenderStates stateManager;
+/// stateManager.shader = &shader;
+/// m_window.draw(sprite, stateManager);
 /// \endcode
 ///
 /// In the code above we pass a pointer to the shader, because it may

@@ -177,7 +177,7 @@ private:
     /// \brief Draw the vertex array to a render target
     ///
     /// \param target render target to draw to
-    /// \param states Current render states
+    /// \param states Current render stateManager
     ///
     ////////////////////////////////////////////////////////////
     virtual void draw(RenderTarget& target, RenderStates states) const;
@@ -215,7 +215,7 @@ private:
 /// lines[2].position = sf::Vector2f(30, 5);
 /// lines[3].position = sf::Vector2f(40, 2);
 ///
-/// window.draw(lines);
+/// m_window.draw(lines);
 /// \endcode
 ///
 /// \see sf::Vertex

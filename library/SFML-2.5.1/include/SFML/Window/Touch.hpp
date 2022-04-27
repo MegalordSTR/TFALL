@@ -68,13 +68,13 @@ public:
     static Vector2i getPosition(unsigned int finger);
 
     ////////////////////////////////////////////////////////////
-    /// \brief Get the current position of a touch in window coordinates
+    /// \brief Get the current position of a touch in m_window coordinates
     ///
     /// This function returns the current touch position
-    /// relative to the given window.
+    /// relative to the given m_window.
     ///
     /// \param finger Finger index
-    /// \param relativeTo Reference window
+    /// \param relativeTo Reference m_window
     ///
     /// \return Current position of \a finger, or undefined if it's not down
     ///
@@ -90,25 +90,25 @@ public:
 
 ////////////////////////////////////////////////////////////
 /// \class sf::Touch
-/// \ingroup window
+/// \ingroup m_window
 ///
 /// sf::Touch provides an interface to the state of the
 /// touches. It only contains static functions, so it's not
 /// meant to be instantiated.
 ///
 /// This class allows users to query the touches state at any
-/// time and directly, without having to deal with a window and
+/// time and directly, without having to deal with a m_window and
 /// its events. Compared to the TouchBegan, TouchMoved
 /// and TouchEnded events, sf::Touch can retrieve the
 /// state of the touches at any time (you don't need to store and
 /// update a boolean on your side in order to know if a touch is down),
 /// and you always get the real state of the touches, even if they
-/// happen when your window is out of focus and no event is triggered.
+/// happen when your m_window is out of focus and no event is triggered.
 ///
 /// The getPosition function can be used to retrieve the current
 /// position of a touch. There are two versions: one that operates
 /// in global coordinates (relative to the desktop) and one that
-/// operates in window coordinates (relative to a specific window).
+/// operates in m_window coordinates (relative to a specific m_window).
 ///
 /// Touches are identified by an index (the "finger"), so that in
 /// multi-touch events, individual touches can be tracked correctly.
@@ -128,8 +128,8 @@ public:
 /// // get global position of touch 1
 /// sf::Vector2i globalPos = sf::Touch::getPosition(1);
 ///
-/// // get position of touch 1 relative to a window
-/// sf::Vector2i relativePos = sf::Touch::getPosition(1, window);
+/// // get position of touch 1 relative to a m_window
+/// sf::Vector2i relativePos = sf::Touch::getPosition(1, m_window);
 /// \endcode
 ///
 /// \see sf::Joystick, sf::Keyboard, sf::Mouse

@@ -124,7 +124,7 @@ private:
 /// rectangle.setOutlineThickness(5);
 /// rectangle.setPosition(10, 20);
 /// ...
-/// window.draw(rectangle);
+/// m_window.draw(rectangle);
 /// \endcode
 ///
 /// \see sf::Shape, sf::CircleShape, sf::ConvexShape

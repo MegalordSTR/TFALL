@@ -214,9 +214,11 @@ TetrisGrid::BlockGrid TetrisGrid::makeGrid() const {
     BlockGrid grid;
     int size = settings.size.x * settings.size.y;
     grid.reserve(size);
-    for (int i = 0; i < settings.size.y; i++) {
-        for (int j = 0; j < settings.size.x; j++) {
-            grid.emplace_back(std::shared_ptr<MW::SpriteNode>(nullptr), BlockType::None, i, j);
+    for (int y = 0; y < settings.size.y; y++)
+    {
+        for (int x = 0; x < settings.size.x; x++)
+        {
+            grid.emplace_back(std::shared_ptr<MW::SpriteNode>(nullptr), BlockType::None, y, x);
         }
     }
     return grid;

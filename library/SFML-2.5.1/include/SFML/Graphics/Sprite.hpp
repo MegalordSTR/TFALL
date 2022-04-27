@@ -195,7 +195,7 @@ private:
     /// \brief Draw the sprite to a render target
     ///
     /// \param target render target to draw to
-    /// \param states Current render states
+    /// \param states Current render stateManager
     ///
     ////////////////////////////////////////////////////////////
     virtual void draw(RenderTarget& target, RenderStates states) const;
@@ -271,7 +271,7 @@ private:
 /// sprite.setPosition(100, 25);
 ///
 /// // Draw it
-/// window.draw(sprite);
+/// m_window.draw(sprite);
 /// \endcode
 ///
 /// \see sf::Texture, sf::Transformable

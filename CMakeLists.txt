@@ -59,7 +59,8 @@ add_executable(TFALL
         Frameworks/MW/Node/Label.hpp
         Frameworks/MW/Core/StateManager.cpp
         Frameworks/MW/Core/StateManager.hpp
-        Frameworks/MW/Core/SharedContext.hpp)
+        Frameworks/MW/Core/SharedContext.hpp
+        Frameworks/MW/Core/BaseState.hpp)
 
 # SFML
 target_link_libraries(TFALL sfml-system sfml-window sfml-graphics sfml-network sfml-audio)

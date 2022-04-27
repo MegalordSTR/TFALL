@@ -1,4 +1,5 @@
 #include "Command.hpp"
+
 namespace MW
 {
     Command::Command(Action fn, CategoryType category)

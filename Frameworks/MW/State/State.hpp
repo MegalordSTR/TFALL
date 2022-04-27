@@ -15,12 +15,13 @@ namespace MW
     class StateStack;
     class InputManager;
 
-    class State
+
+    class [[deprecated]] State
     {
     public:
         typedef std::unique_ptr<State> Ptr;
 
-        struct Context
+        struct [[deprecated]] Context
         {
             Context(
                     sf::RenderWindow& window,
