@@ -1,5 +1,6 @@
 #include "App.hpp"
 #include <States/GameState.hpp>
+#include <States/MenuState.hpp>
 
 App::App(int windowWidth, int windowHeight, float targetFPS) :
         window(sf::VideoMode(windowWidth, windowHeight), "App", sf::Style::Close),
@@ -25,9 +26,11 @@ App::App(int windowWidth, int windowHeight, float targetFPS) :
     fontHolder.load(MW::Resources::Font::Main, "Sansation.ttf");
 
     inputManager.AddCallback<App>(MW::StateType::Game, "window_close", &App::closeWindow, this);
+    inputManager.AddCallback<App>(MW::StateType::MainMenu, "window_close", &App::closeWindow, this);
 
     stateManager->RegisterState<GameState>(MW::StateType::Game);
-    stateManager->SwitchTo(MW::StateType::Game);
+    stateManager->RegisterState<MenuState>(MW::StateType::MainMenu);
+    stateManager->SwitchTo(MW::StateType::MainMenu);
 }
 
 void App::Run() {

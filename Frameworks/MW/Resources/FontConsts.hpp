@@ -2,7 +2,7 @@
 
 namespace MW
 {
-	enum class FontSize
+	enum class FontSize : int32_t
 	{
 		DebugInfo = 12,
 		PlayerInfo = 24,
